@@ -27,5 +27,5 @@ dist/gfx:
 	mkdir -p dist/gfx
 	touch dist/gfx
 
-dist/gfx/%.png: dist/gfx src/gfx/%.xcf
+dist/gfx/%.png: src/scripts/xcf2png.sh dist/gfx src/gfx/%.xcf
 	src/scripts/xcf2png.sh $(basename $(@F))
