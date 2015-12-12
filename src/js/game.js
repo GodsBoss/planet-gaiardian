@@ -203,30 +203,36 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.create = function() {
+    this.addPlanet();
+    this.addPlayer();
+    this.addPlants();
+    this.addActiveToolMarker();
+    this.addTools();
+  };
+
+  Play.prototype.addPlanet = function() {
     this.planet = this.add.sprite(200, 200, 'Planet1');
     this.planet.anchor.setTo(0.5, 0.5);
     this.planet.scale.setTo(2, 2);
+  };
+
+  Play.prototype.addPlayer = function() {
     this.player = this.add.sprite(200, 25, 'Player');
     this.player.anchor.setTo(0.5, 0);
     this.player.scale.setTo(2, 2);
     this.player.animations.add('run', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
     this.player.play('run');
-    this.plants = _.flatten(
-      this.level.plantTypes.map(
-        function (type) {
-          if (!this.level.plants[type.key]) {
-            return [];
-          }
-          return this.level.plants[type.key].map(_.bind(this.createPlant, this, type.key));
-        },
-        this
-      )
-    );
+  };
+
+  Play.prototype.addActiveToolMarker = function() {
     this.activeToolMarker = this.add.sprite(440, 16, 'ActiveToolMarker');
     this.activeToolMarker.anchor.setTo(0.5, 0);
     this.activeToolMarker.scale.setTo(2, 2);
     this.activeToolMarker.animations.add('normal', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
     this.activeToolMarker.play('normal');
+  };
+
+  Play.prototype.addTools = function() {
     this.tools = this.level.tools.map(
       function (toolData) {
         var sprite = this.add.sprite(0, 0, toolData.key.replace(/-([0-9]+)$/, 'Tool'), toolData.key.replace(/^.*-([0-9]+)$/, '$1')-1);
@@ -259,6 +265,20 @@ var game = (function(_, Phaser) {
         tool.position.setTo(440, visibleIndex * 50 + 20);
       },
       this
+    );
+  };
+
+  Play.prototype.addPlants = function() {
+    this.plants = _.flatten(
+      this.level.plantTypes.map(
+        function (type) {
+          if (!this.level.plants[type.key]) {
+            return [];
+          }
+          return this.level.plants[type.key].map(_.bind(this.createPlant, this, type.key));
+        },
+        this
+      )
     );
   };
 
