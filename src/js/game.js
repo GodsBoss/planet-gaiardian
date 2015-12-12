@@ -80,13 +80,9 @@ var game = (function(_, Phaser) {
 
   Play.prototype.update = function() {}
 
-  Play.prototype.update = function() {}
-
   function ShowLevelResult() {}
 
   inherit(State, ShowLevelResult);
-
-  ShowLevelResult.prototype.update = function() {}
 
   ShowLevelResult.prototype.update = function() {}
 
