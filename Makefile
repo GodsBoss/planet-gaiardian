@@ -23,7 +23,7 @@ node_modules: package.json
 serve: node_modules
 	npm run serve
 
-dist/gfx: dist
+dist/gfx:
 	mkdir -p dist/gfx
 	touch dist/gfx
 
