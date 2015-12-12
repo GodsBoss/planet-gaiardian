@@ -22,6 +22,7 @@ function createPreload()
     create: function() {
       var preloaderScreen = this.add.sprite(this.world.centerX, this.world.centerY, 'preload-screen');
       preloaderScreen.anchor.setTo(0.5, 0.5);
+      preloaderScreen.scale.setTo(2, 2);
     }
   }
 }
