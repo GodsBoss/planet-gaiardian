@@ -40,6 +40,7 @@ function createPreload()
       var preloaderBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preload-bar');
       preloaderBar.anchor.setTo(0.5, 0.5);
       this.load.setPreloadSprite(preloaderBar);
+      this.load.image('select-level-screen', 'gfx/select-level-screen.png');
     },
     create: function() {
       this.state.start('selectLevel');
@@ -51,6 +52,9 @@ function createSelectLevel()
 {
   return {
     create: function() {
+      var screen = this.add.sprite(this.world.centerX, this.world.centerY, 'select-level-screen');
+      screen.anchor.setTo(0.5, 0.5);
+      screen.scale.setTo(2, 2);
     },
     update: function() {
     }
