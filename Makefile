@@ -21,6 +21,7 @@ serve: node_modules
 
 dist/gfx: dist
 	mkdir -p dist/gfx
+	touch dist/gfx
 
 dist/gfx/%.png: dist/gfx src/gfx/%.xcf
 	src/scripts/xcf2png.sh $(basename $(@F))
