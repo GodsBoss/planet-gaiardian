@@ -1,4 +1,6 @@
-dist/index.html: dist src/index.html dist/init.js dist/game.js gfx-meta
+GFX=$(shell cd src/gfx; ls *.xcf | sed -e "{ s/\(.*\).xcf/dist\/gfx\/\\1.png/}")
+
+dist/index.html: dist src/index.html dist/init.js dist/game.js $(GFX)
 	cp src/index.html dist
 
 dist:
@@ -19,8 +21,6 @@ serve: node_modules
 
 dist/gfx: dist
 	mkdir -p dist/gfx
-
-gfx-meta: dist/gfx/preload-screen.png dist/gfx/preload-bar.png
 
 dist/gfx/%.png: dist/gfx src/gfx/%.xcf
 	src/scripts/xcf2png.sh $(basename $(@F))
