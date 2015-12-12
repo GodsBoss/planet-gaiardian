@@ -35,10 +35,40 @@ var game = (function(_, Phaser) {
     return background;
   };
 
+  /*
+  * Temporary state, living only long enough to load everything necessary for preloader.
+  *
+  * Next state: Preload
+  */
   function Boot() {}
+
+  /*
+  * Temporary states. Shows a bootloading animation and loads all sounds, graphics, etc.
+  *
+  * Next state: SelectLevel
+  */
   function Preload(){}
+
+  /*
+  * Shows an overview over all levels, additional information per level. Allows starting
+  * levels.
+  *
+  * Next state: Play
+  */
   function SelectLevel() {}
+
+  /*
+  * The actual game. Player can interact and must play to win.
+  *
+  * Next state: ShowLevelResult
+  */
   function Play() {}
+
+  /*
+  * Shown after a level is over.
+  *
+  * Next state: SelectLevel
+  */
   function ShowLevelResult() {}
 
   [Boot, Preload, SelectLevel, Play, ShowLevelResult].forEach(
