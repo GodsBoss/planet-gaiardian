@@ -24,5 +24,3 @@ dist/gfx: dist
 
 dist/gfx/%.png: dist/gfx src/gfx/%.xcf
 	src/scripts/xcf2png.sh $(basename $(@F))
-
-.PHONY: gfx-meta
