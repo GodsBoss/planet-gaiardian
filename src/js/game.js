@@ -146,10 +146,11 @@ var game = (function(_, Phaser) {
   */
   function Levels(data) {
     this.data = data;
+    this.levels = data.levels.map(this.dataToLevel, this);
   }
 
   Levels.prototype.available = function() {
-    return this.data.levels.filter(_.property('unlocked')).map(this.dataToLevel, this);
+    return this.levels.filter(_.property('unlocked'));
   };
 
   Levels.prototype.dataToLevel = function (data) {
