@@ -5,6 +5,15 @@ var game = (function(_, Phaser) {
   var AUTOSTART = true;
   var CLEAR_WORLD = true;
   var CLEAR_CACHE = true;
+  var LEVEL_INFO_STYLE = {
+    fill: '#ffffff',
+    font: 'normal 10px monospace'
+  };
+  var LEVEL_START_STYLE = {
+    fill: '#00ff00',
+    font: 'bold 10px monospace'
+  };
+  var LEVEL_START_STYLE_HOVER = _.merge({}, LEVEL_START_STYLE, { fill: '#ffff00'});
 
   var inherit = (function() {
     function F(){}
@@ -114,8 +123,16 @@ var game = (function(_, Phaser) {
   SelectLevel.prototype.create = function() {
     this.createBackground();
     this.levelSprites = this.levels.available().map(this.createLevelSprite, this);
-    this.selectedSprite = null;
-    this.levelInfoOpen = false;
+    this.levelInfoText = this.add.text(320, 380, '', LEVEL_INFO_STYLE);
+    this.levelInfoText.anchor.setTo(0.5, 1);
+    this.levelInfoText.visible = false;
+    this.startLevelText = this.add.text(320, 380, 'Start!', LEVEL_START_STYLE);
+    this.startLevelText.anchor.setTo(0.5, 0);
+    this.startLevelText.inputEnabled = true;
+    this.startLevelText.events.onInputOver.add(this.highlightStartLevelText, this);
+    this.startLevelText.events.onInputOut.add(this.unhighlightStartLevelText, this);
+    this.startLevelText.events.onInputDown.add(this.startLevel, this);
+    this.startLevelText.visible = false;
   };
 
   SelectLevel.prototype.createLevelSprite = function(level) {
@@ -129,11 +146,26 @@ var game = (function(_, Phaser) {
     sprite.levelKey = level.key;
     sprite.anchor.setTo(0.5, 0.5);
     sprite.inputEnabled = true;
-    sprite.events.onInputUp.add(this.showLevelInfo, this);
+    sprite.events.onInputUp.add(this.showLevelInfo, this, 0, level.description);
     return sprite;
   };
 
-  SelectLevel.prototype.showLevelInfo = function(sprite, pointer) {};
+  SelectLevel.prototype.showLevelInfo = function(sprite, pointer, $, info) {
+    this.levelInfoText.setText(info);
+    this.levelInfoText.visible = true;
+    this.startLevelText.visible = true;
+    this.startLevelText.levelKey = sprite.levelKey;
+  };
+
+  SelectLevel.prototype.highlightStartLevelText = function() {
+    this.startLevelText.setStyle(LEVEL_START_STYLE_HOVER);
+  };
+
+  SelectLevel.prototype.unhighlightStartLevelText = function() {
+    this.startLevelText.setStyle(LEVEL_START_STYLE);
+  };
+
+  SelectLevel.prototype.startLevel = function() {};
 
   SelectLevel.prototype.update = function() {}
 
