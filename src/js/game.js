@@ -208,6 +208,7 @@ var game = (function(_, Phaser) {
     this.addPlants();
     this.addActiveToolMarker();
     this.addTools();
+    this.bindKeys();
   };
 
   Play.prototype.addPlanet = function() {
@@ -308,6 +309,21 @@ var game = (function(_, Phaser) {
       200 - PLANT_DISTANCE * Math.cos(-this.rotation)
     );
   }
+
+  Play.prototype.bindKeys = function() {
+    var keyCodeForA = 65;
+    var keyCodeForS = 83;
+    this.input.keyboard.addKey(keyCodeForA).onUp.add(this.switchTool, this);
+    this.input.keyboard.addKey(keyCodeForS).onUp.add(this.useTool, this);
+  };
+
+  Play.prototype.switchTool = function() {
+    this.currentToolIndex = (this.currentToolIndex + 1) % this.tools.length;
+    this.positionTools();
+  };
+
+  Play.prototype.useTool = function() {
+  };
 
   Play.prototype.update = function() {
     this.rotation += 0.01;
