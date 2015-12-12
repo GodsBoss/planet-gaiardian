@@ -6,7 +6,9 @@ var game = (function(_, Phaser) {
   var CLEAR_WORLD = true;
   var CLEAR_CACHE = true;
   var ALL_FRAMES = null;
+  var ANIMATION_FPS = 8;
   var LOOP_ANIMATION = true;
+  var PLANT_DISTANCE = 160;
   var LEVEL_INFO_STYLE = {
     fill: '#ffffff',
     font: 'normal 10px monospace'
@@ -47,6 +49,10 @@ var game = (function(_, Phaser) {
 
   State.prototype.loadSpritesheet = function(key, frameWidth, frameHeight, frameMax, margin, spacing) {
     this.load.spritesheet(key, 'gfx/' + key + '.png', frameWidth, frameHeight, frameMax, margin, spacing);
+  };
+
+  State.prototype.loadPlantSpritesheet = function(key) {
+    this.load.spritesheet(key, 'gfx/' + key + '.png', 15, 15);
   };
 
   State.prototype.createBackground = function(spriteKey) {
@@ -113,6 +119,7 @@ var game = (function(_, Phaser) {
     preloaderBar.anchor.setTo(0.5, 0.5);
     this.load.setPreloadSprite(preloaderBar);
     PRELOAD_IMAGES.forEach(function(image) {this.loadImage(image);}, this);
+    PLANT_SPRITESHEETS.forEach(function(sheet) {this.loadPlantSpritesheet(sheet);}, this);
     this.loadSpritesheet('LevelSelectLevel', 30, 30);
     this.loadSpritesheet('Player', 15, 15);
     this.load.json('levels', 'levels.json?' + new Date());
@@ -185,6 +192,7 @@ var game = (function(_, Phaser) {
 
   Play.prototype.init = function(level) {
     this.level = level;
+    this.rotation = 0;
     this.createBackground('PlayBackgroundBlue');
   };
 
@@ -195,12 +203,54 @@ var game = (function(_, Phaser) {
     this.player = this.add.sprite(200, 25, 'Player');
     this.player.anchor.setTo(0.5, 0);
     this.player.scale.setTo(2, 2);
-    this.player.animations.add('run', ALL_FRAMES, 8, LOOP_ANIMATION);
+    this.player.animations.add('run', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
     this.player.play('run');
+    this.plants = _.flatten(
+      this.level.plantTypes.map(
+        function (type) {
+          if (!this.level.plants[type.key]) {
+            return [];
+          }
+          return this.level.plants[type.key].map(_.bind(this.createPlant, this, type.key));
+        },
+        this
+      )
+    );
   };
 
+  Play.prototype.createPlant = function(type, position) {
+    var frameIndex = 2*type.replace(/^.*-([0-9]+)$/, '$1')-1;
+    var spriteKey = type.replace(/-([0-9]+)$/, 'Plant');
+    var sprite = this.add.sprite(0, 0, spriteKey);
+    sprite.anchor.setTo(0.5, 0.5);
+    sprite.scale.setTo(2, 2);
+    sprite.baseRotation = position;
+    var animation = sprite.animations.add('stand', [frameIndex-1, frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
+    sprite.play('stand');
+
+    // Avoid synchronized animations.
+    var animationOffset = Math.floor(Math.random() * animation.delay);
+    animation._timeNextFrame += animationOffset;
+    animation._timeLastFrame += animationOffset;
+
+    sprite.movePlant = movePlant;
+    sprite.movePlant(0);
+    return sprite;
+  };
+
+  function movePlant(rotation)
+  {
+    this.rotation = this.baseRotation - rotation;
+    this.position.setTo(
+      200 - PLANT_DISTANCE * Math.sin(-this.rotation),
+      200 - PLANT_DISTANCE * Math.cos(-this.rotation)
+    );
+  }
+
   Play.prototype.update = function() {
-    this.planet.rotation -= 0.01;
+    this.rotation += 0.01;
+    this.planet.rotation = -this.rotation;
+    this.plants.forEach(_.method('movePlant', this.rotation));
   }
 
   ShowLevelResult.prototype.update = function() {}
@@ -249,9 +299,14 @@ var game = (function(_, Phaser) {
   }
 
   var PRELOAD_IMAGES = [
+    'InvisiblePlant',
     'PlayBackgroundBlue',
     'SelectLevelBackground',
     'Planet1'
+  ];
+
+  var PLANT_SPRITESHEETS = [
+    'TutorialPlant'
   ];
 
   return myGame;
