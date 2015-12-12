@@ -141,6 +141,9 @@ var game = (function(_, Phaser) {
 
   ShowLevelResult.prototype.update = function() {}
 
+  /*
+  * All levels.
+  */
   function Levels(data) {
     this.data = data;
   }
@@ -159,6 +162,9 @@ var game = (function(_, Phaser) {
     return level;
   }
 
+  /*
+  * A single level.
+  */
   function Level(data)
   {
     _.extend(this, data);
