@@ -256,8 +256,7 @@ var game = (function(_, Phaser) {
     this.positionTools();
   };
 
-  Play.prototype.positionTools = function()
-  {
+  Play.prototype.positionTools = function() {
     this.tools.forEach(
       function(tool, index, tools) {
         var visibleIndex = (index - this.currentToolIndex + tools.length) % tools.length;
