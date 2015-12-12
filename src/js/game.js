@@ -260,7 +260,6 @@ var game = (function(_, Phaser) {
     this.tools.forEach(
       function(tool, index, tools) {
         var visibleIndex = (index - this.currentToolIndex + tools.length) % tools.length;
-        console.log(tool, visibleIndex);
         tool.position.setTo(440, visibleIndex * 50 + 20);
       },
       this
