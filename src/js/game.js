@@ -90,6 +90,6 @@ var game = (function(_, Phaser) {
 
   ShowLevelResult.prototype.update = function() {}
 
-return myGame;
+  return myGame;
 
 })(_, Phaser);
