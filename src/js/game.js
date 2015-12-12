@@ -110,7 +110,7 @@ var game = (function(_, Phaser) {
     var preloaderBar = this.add.sprite(this.world.centerX, this.world.centerY, 'PreloadBar');
     preloaderBar.anchor.setTo(0.5, 0.5);
     this.load.setPreloadSprite(preloaderBar);
-    this.loadImage('SelectLevelBackground');
+    PRELOAD_IMAGES.forEach(function(image) {this.loadImage(image);}, this);
     this.loadSpritesheet('LevelSelectLevel', 30, 30);
     this.load.json('levels', 'levels.json?' + new Date());
   };
@@ -180,9 +180,20 @@ var game = (function(_, Phaser) {
     this.state.start('Play', CLEAR_WORLD, !CLEAR_CACHE, this.levels.byKey(this.currentLevelKey));
   };
 
-  Play.prototype.init = function(level) {};
+  Play.prototype.init = function(level) {
+    this.level = level;
+    this.createBackground('PlayBackgroundBlue');
+  };
 
-  Play.prototype.update = function() {}
+  Play.prototype.create = function() {
+    this.planet = this.add.sprite(200, 200, 'Planet1');
+    this.planet.anchor.setTo(0.5, 0.5);
+    this.planet.scale.setTo(2, 2);
+  };
+
+  Play.prototype.update = function() {
+    this.planet.rotation -= 0.01;
+  }
 
   ShowLevelResult.prototype.update = function() {}
 
@@ -228,6 +239,12 @@ var game = (function(_, Phaser) {
     // Must be array
     this.unlocks = Array.isArray(this.unlocks) ? this.unlocks : [];
   }
+
+  var PRELOAD_IMAGES = [
+    'PlayBackgroundBlue',
+    'SelectLevelBackground',
+    'Planet1'
+  ];
 
   return myGame;
 
