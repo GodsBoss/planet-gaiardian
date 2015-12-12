@@ -22,10 +22,7 @@ dist/gfx: dist
 
 gfx-meta: dist/gfx/preload-screen.png dist/gfx/preload-bar.png
 
-dist/gfx/preload-screen.png: dist/gfx
-	src/scripts/xcf2png.sh preload-screen
-
-dist/gfx/preload-bar.png: dist/gfx
-	src/scripts/xcf2png.sh preload-bar
+dist/gfx/%.png: dist/gfx src/gfx/%.xcf
+	src/scripts/xcf2png.sh $(basename $(@F))
 
 .PHONY: gfx-meta
