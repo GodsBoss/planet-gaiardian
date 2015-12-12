@@ -1,3 +1,33 @@
 {
-
+  "levels": [
+    {
+      "key": "tutorial",
+      "name": "Tutorial",
+      "unlocked": true,
+      "x": 50,
+      "y": 100,
+      "finished": true
+    },
+    {
+      "key": "1",
+      "name": "",
+      "unlocked": true,
+      "unlocks": ["2"],
+      "x": 100,
+      "y": 100
+    },
+    {
+      "key": "2",
+      "name": "",
+      "x": 150,
+      "y": 100
+    },
+    {
+      "key": "bonus",
+      "name": "",
+      "unlocked": true,
+      "x": 200,
+      "y": 100
+    }
+  ]
 }

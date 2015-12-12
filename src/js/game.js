@@ -3,6 +3,8 @@ var game = (function(_, Phaser) {
   var TRANSPARENT = true;
   var ANTIALIASING = true;
   var AUTOSTART = true;
+  var CLEAR_WORLD = true;
+  var CLEAR_CACHE = true;
 
   var inherit = (function() {
     function F(){}
@@ -26,6 +28,10 @@ var game = (function(_, Phaser) {
 
   State.prototype.loadImage = function(key) {
     this.load.image(key, 'gfx/' + key + '.png');
+  };
+
+  State.prototype.loadSpritesheet = function(key, frameWidth, frameHeight, frameMax, margin, spacing) {
+    this.load.spritesheet(key, 'gfx/' + key + '.png', frameWidth, frameHeight, frameMax, margin, spacing);
   };
 
   State.prototype.createBackground = function(spriteKey) {
@@ -92,14 +98,33 @@ var game = (function(_, Phaser) {
     preloaderBar.anchor.setTo(0.5, 0.5);
     this.load.setPreloadSprite(preloaderBar);
     this.loadImage('SelectLevelBackground');
+    this.loadSpritesheet('LevelSelectLevel', 30, 30);
+    this.load.json('levels', 'levels.json?' + new Date());
   };
 
   Preload.prototype.create = function() {
-    this.state.start('SelectLevel');
+    var levels = new Levels(this.cache.getJSON('levels'));
+    this.state.start('SelectLevel', CLEAR_WORLD, !CLEAR_CACHE, levels);
+  };
+
+  SelectLevel.prototype.init = function(levels) {
+    this.levels = levels;
   };
 
   SelectLevel.prototype.create = function() {
     this.createBackground();
+    this.levels.available().forEach(this.createLevelSprite, this);
+  };
+
+  SelectLevel.prototype.createLevelSprite = function(level) {
+    var spriteFrame = 0;
+    if (level.finished) {
+      spriteFrame = 2;
+    } else if (level.unlocksSomeOtherLevel) {
+      spriteFrame = 1;
+    }
+    var sprite = this.add.sprite(level.x, level.y, 'LevelSelectLevel', spriteFrame);
+    sprite.anchor.setTo(0.5, 0.5);
   };
 
   SelectLevel.prototype.update = function() {}
@@ -107,6 +132,36 @@ var game = (function(_, Phaser) {
   Play.prototype.update = function() {}
 
   ShowLevelResult.prototype.update = function() {}
+
+  function Levels(data) {
+    this.data = data;
+  }
+
+  Levels.prototype.available = function() {
+    return this.data.levels.filter(_.property('unlocked')).map(this.dataToLevel, this);
+  };
+
+  Levels.prototype.dataToLevel = function (data) {
+    var level = new Level(data);
+    level.unlocksSomeOtherLevel = level.unlocks.some(function(levelKey){
+      return this.data.levels.some(function(levelData) {
+        return !levelData.unlocked && levelData.key === levelKey
+      });
+    }, this);
+    return level;
+  }
+
+  function Level(data)
+  {
+    _.extend(this, data);
+
+    // Ensure booleans
+    this.unlocked = !!this.unlocked;
+    this.finished = !!this.finished;
+
+    // Must be array
+    this.unlocks = Array.isArray(this.unlocks) ? this.unlocks : [];
+  }
 
   return myGame;
 
