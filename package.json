@@ -1,0 +1,17 @@
+{
+  "name": "godsboss-ld34",
+  "version": "1.0.0",
+  "description": "God's Boss' entry for Ludum Dare 34.",
+  "main": "index.js",
+  "keywords": [
+    "game"
+  ],
+  "author": {
+    "name": "Timo Reitz",
+    "url": "http://www.godsboss.de/"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "node-static": "^0.7.7"
+  }
+}

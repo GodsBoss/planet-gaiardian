@@ -3,3 +3,7 @@ dist/index.html: dist src/index.html
 
 dist:
 	mkdir -p dist
+
+node_modules: package.json
+	npm install
+	touch node_modules
