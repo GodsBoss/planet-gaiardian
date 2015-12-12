@@ -113,7 +113,9 @@ var game = (function(_, Phaser) {
 
   SelectLevel.prototype.create = function() {
     this.createBackground();
-    this.levels.available().forEach(this.createLevelSprite, this);
+    this.levelSprites = this.levels.available().map(this.createLevelSprite, this);
+    this.selectedSprite = null;
+    this.levelInfoOpen = false;
   };
 
   SelectLevel.prototype.createLevelSprite = function(level) {
@@ -124,8 +126,14 @@ var game = (function(_, Phaser) {
       spriteFrame = 1;
     }
     var sprite = this.add.sprite(level.x, level.y, 'LevelSelectLevel', spriteFrame);
+    sprite.levelKey = level.key;
     sprite.anchor.setTo(0.5, 0.5);
+    sprite.inputEnabled = true;
+    sprite.events.onInputUp.add(this.showLevelInfo, this);
+    return sprite;
   };
+
+  SelectLevel.prototype.showLevelInfo = function(sprite, pointer) {};
 
   SelectLevel.prototype.update = function() {}
 
