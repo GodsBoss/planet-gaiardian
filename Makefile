@@ -1,4 +1,4 @@
-dist/index.html: dist src/index.html dist/init.js dist/game.js
+dist/index.html: dist src/index.html dist/init.js dist/game.js gfx-meta
 	cp src/index.html dist
 
 dist:
@@ -16,3 +16,13 @@ node_modules: package.json
 
 serve: node_modules
 	npm run serve
+
+dist/gfx: dist
+	mkdir -p dist/gfx
+
+gfx-meta: dist/gfx/preload-screen.png
+
+dist/gfx/preload-screen.png: dist/gfx
+	src/scripts/xcf2png.sh preload-screen
+
+.PHONY: gfx-meta
