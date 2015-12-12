@@ -193,7 +193,7 @@ var game = (function(_, Phaser) {
     this.planet.anchor.setTo(0.5, 0.5);
     this.planet.scale.setTo(2, 2);
     this.player = this.add.sprite(200, 25, 'Player');
-    this.player.anchor.setTo(0.5, 0.5);
+    this.player.anchor.setTo(0.5, 0);
     this.player.scale.setTo(2, 2);
     this.player.animations.add('run', ALL_FRAMES, 8, LOOP_ANIMATION);
     this.player.play('run');
