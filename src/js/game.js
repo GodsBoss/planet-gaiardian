@@ -5,6 +5,8 @@ var game = (function(_, Phaser) {
   var AUTOSTART = true;
   var CLEAR_WORLD = true;
   var CLEAR_CACHE = true;
+  var ALL_FRAMES = null;
+  var LOOP_ANIMATION = true;
   var LEVEL_INFO_STYLE = {
     fill: '#ffffff',
     font: 'normal 10px monospace'
@@ -112,6 +114,7 @@ var game = (function(_, Phaser) {
     this.load.setPreloadSprite(preloaderBar);
     PRELOAD_IMAGES.forEach(function(image) {this.loadImage(image);}, this);
     this.loadSpritesheet('LevelSelectLevel', 30, 30);
+    this.loadSpritesheet('Player', 15, 15);
     this.load.json('levels', 'levels.json?' + new Date());
   };
 
@@ -189,6 +192,11 @@ var game = (function(_, Phaser) {
     this.planet = this.add.sprite(200, 200, 'Planet1');
     this.planet.anchor.setTo(0.5, 0.5);
     this.planet.scale.setTo(2, 2);
+    this.player = this.add.sprite(200, 25, 'Player');
+    this.player.anchor.setTo(0.5, 0.5);
+    this.player.scale.setTo(2, 2);
+    this.player.animations.add('run', ALL_FRAMES, 8, LOOP_ANIMATION);
+    this.player.play('run');
   };
 
   Play.prototype.update = function() {
