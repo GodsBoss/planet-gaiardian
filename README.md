@@ -12,3 +12,10 @@ use it on the things you come along.
 
 The controls are easy: One button to switch to the next tool in the line,
 the other button to use it.
+
+## Requirements
+
+To build the game, you need:
+- [GIMP](http://www.gimp.org/)
+- [GNU Make](https://www.gnu.org/software/make/)
+- [Node package manager](https://www.npmjs.com/)
