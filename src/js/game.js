@@ -165,9 +165,13 @@ var game = (function(_, Phaser) {
     this.startLevelText.setStyle(LEVEL_START_STYLE);
   };
 
-  SelectLevel.prototype.startLevel = function() {};
+  SelectLevel.prototype.startLevel = function() {
+    this.state.start('Play', CLEAR_WORLD, !CLEAR_CACHE, this.levels.byKey(this.currentLevelKey));
+  };
 
   SelectLevel.prototype.update = function() {}
+
+  Play.prototype.init = function(level) {};
 
   Play.prototype.update = function() {}
 
@@ -194,6 +198,12 @@ var game = (function(_, Phaser) {
     }, this);
     return level;
   }
+
+  Levels.prototype.byKey = function (key) {
+    return this.levels.find(function(level) {
+      return level.key === key;
+    });
+  };
 
   /*
   * A single level.
