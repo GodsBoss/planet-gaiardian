@@ -40,23 +40,41 @@ function createPreload()
       var preloaderBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preload-bar');
       preloaderBar.anchor.setTo(0.5, 0.5);
       this.load.setPreloadSprite(preloaderBar);
+    },
+    create: function() {
+      this.state.start('selectLevel');
     }
   }
 }
 
 function createSelectLevel()
 {
-  return {};
+  return {
+    create: function() {
+    },
+    update: function() {
+    }
+  };
 }
 
 function createPlay()
 {
-  return {};
+  return {
+    create: function() {
+    },
+    update: function() {
+    }
+  }
 }
 
 function createShowLevelResult()
 {
-  return {};
+  return {
+    create: function() {
+    },
+    update: function() {
+    }
+  }
 }
 
 })(_, Phaser);
