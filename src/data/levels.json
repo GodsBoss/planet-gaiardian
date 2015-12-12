@@ -8,6 +8,23 @@
       "x": 50,
       "y": 100,
       "finished": true,
+      "tools": [
+        {
+          "key": "Tutorial-1",
+          "convert": {
+            "Tutorial-1": "Tutorial-2"
+          },
+          "amount": 5
+        },
+        {
+          "key": "Tutorial-2",
+          "convert": {
+            "Tutorial-1": "Tutorial-3"
+          },
+          "amount": 5
+        }
+      ],
+      "firstTool": "Tutorial-1",
       "plantTypes": [
         {
           "key": "Tutorial-1"

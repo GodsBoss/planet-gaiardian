@@ -55,6 +55,10 @@ var game = (function(_, Phaser) {
     this.load.spritesheet(key, 'gfx/' + key + '.png', 15, 15);
   };
 
+  State.prototype.loadToolSpritesheet = function(key) {
+    this.load.spritesheet(key, 'gfx/' + key + '.png', 20, 20);
+  }
+
   State.prototype.createBackground = function(spriteKey) {
     var background = this.add.sprite(this.world.centerX, this.world.centerY, spriteKey || (this.key + 'Background'));
     background.anchor.setTo(0.5, 0.5);
@@ -120,8 +124,10 @@ var game = (function(_, Phaser) {
     this.load.setPreloadSprite(preloaderBar);
     PRELOAD_IMAGES.forEach(function(image) {this.loadImage(image);}, this);
     PLANT_SPRITESHEETS.forEach(function(sheet) {this.loadPlantSpritesheet(sheet);}, this);
+    TOOL_SPRITESHEETS.forEach(function(sheet) {this.loadToolSpritesheet(sheet);}, this);
     this.loadSpritesheet('LevelSelectLevel', 30, 30);
     this.loadSpritesheet('Player', 15, 15);
+    this.loadSpritesheet('ActiveToolMarker', 24, 24);
     this.load.json('levels', 'levels.json?' + new Date());
   };
 
@@ -216,6 +222,44 @@ var game = (function(_, Phaser) {
         this
       )
     );
+    this.activeToolMarker = this.add.sprite(440, 16, 'ActiveToolMarker');
+    this.activeToolMarker.anchor.setTo(0.5, 0);
+    this.activeToolMarker.scale.setTo(2, 2);
+    this.activeToolMarker.animations.add('normal', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
+    this.activeToolMarker.play('normal');
+    this.tools = this.level.tools.map(
+      function (toolData) {
+        var sprite = this.add.sprite(0, 0, toolData.key.replace(/-([0-9]+)$/, 'Tool'), toolData.key.replace(/^.*-([0-9]+)$/, '$1')-1);
+        _.extend(sprite, toolData);
+        sprite.anchor.setTo(0.5, 0);
+        sprite.scale.setTo(2, 2);
+        return sprite;
+      },
+      this
+    );
+    this.currentToolIndex = 0;
+    this.tools.some(function(tool) {
+        if (tool.key === this.level.firstTool) {
+          return true;
+        } else {
+          this.currentToolIndex++;
+        }
+      },
+      this
+    );
+    this.positionTools();
+  };
+
+  Play.prototype.positionTools = function()
+  {
+    this.tools.forEach(
+      function(tool, index, tools) {
+        var visibleIndex = (index - this.currentToolIndex + tools.length) % tools.length;
+        console.log(tool, visibleIndex);
+        tool.position.setTo(440, visibleIndex * 50 + 20);
+      },
+      this
+    );
   };
 
   Play.prototype.createPlant = function(type, position) {
@@ -307,6 +351,10 @@ var game = (function(_, Phaser) {
 
   var PLANT_SPRITESHEETS = [
     'TutorialPlant'
+  ];
+
+  var TOOL_SPRITESHEETS = [
+    'TutorialTool'
   ];
 
   return myGame;
