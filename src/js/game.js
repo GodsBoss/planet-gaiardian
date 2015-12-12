@@ -36,8 +36,16 @@ var game = (function(_, Phaser) {
   };
 
   function Boot() {}
+  function Preload(){}
+  function SelectLevel() {}
+  function Play() {}
+  function ShowLevelResult() {}
 
-  inherit(State, Boot);
+  [Boot, Preload, SelectLevel, Play, ShowLevelResult].forEach(
+    function (SpecificState) {
+      inherit(State, SpecificState);
+    }
+  );
 
   Boot.prototype.preload = function() {
     this.loadImage('PreloadBackground');
@@ -47,10 +55,6 @@ var game = (function(_, Phaser) {
   Boot.prototype.create = function() {
     this.state.start('Preload');
   }
-
-  function Preload(){}
-
-  inherit(State, Preload);
 
   Preload.prototype.preload = function() {
     this.createBackground();
@@ -64,25 +68,13 @@ var game = (function(_, Phaser) {
     this.state.start('SelectLevel');
   };
 
-  function SelectLevel() {}
-
-  inherit(State, SelectLevel);
-
   SelectLevel.prototype.create = function() {
     this.createBackground();
   };
 
   SelectLevel.prototype.update = function() {}
 
-  function Play() {}
-
-  inherit(State, Play);
-
   Play.prototype.update = function() {}
-
-  function ShowLevelResult() {}
-
-  inherit(State, ShowLevelResult);
 
   ShowLevelResult.prototype.update = function() {}
 
