@@ -133,6 +133,7 @@ var game = (function(_, Phaser) {
     this.startLevelText.events.onInputOut.add(this.unhighlightStartLevelText, this);
     this.startLevelText.events.onInputDown.add(this.startLevel, this);
     this.startLevelText.visible = false;
+    this.currentLevelKey = null;
   };
 
   SelectLevel.prototype.createLevelSprite = function(level) {
@@ -143,18 +144,17 @@ var game = (function(_, Phaser) {
       spriteFrame = 1;
     }
     var sprite = this.add.sprite(level.x, level.y, 'LevelSelectLevel', spriteFrame);
-    sprite.levelKey = level.key;
     sprite.anchor.setTo(0.5, 0.5);
     sprite.inputEnabled = true;
-    sprite.events.onInputUp.add(this.showLevelInfo, this, 0, level.description);
+    sprite.events.onInputUp.add(this.showLevelInfo, this, 0, level.key, level.description);
     return sprite;
   };
 
-  SelectLevel.prototype.showLevelInfo = function(sprite, pointer, $, info) {
+  SelectLevel.prototype.showLevelInfo = function(sprite, pointer, $, levelKey, info) {
     this.levelInfoText.setText(info);
     this.levelInfoText.visible = true;
     this.startLevelText.visible = true;
-    this.startLevelText.levelKey = sprite.levelKey;
+    this.currentLevelKey = levelKey;
   };
 
   SelectLevel.prototype.highlightStartLevelText = function() {
