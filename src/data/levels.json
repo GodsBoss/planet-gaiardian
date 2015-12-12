@@ -3,7 +3,7 @@
     {
       "key": "tutorial",
       "name": "Tutorial",
-      "description": "Simple tutorial level. Explains the game.",
+      "shortDescription": "Simple tutorial level.\nExplains the game.",
       "unlocked": true,
       "x": 50,
       "y": 100,
@@ -11,8 +11,8 @@
     },
     {
       "key": "1",
-      "name": "",
-      "description": "",
+      "name": "First level",
+      "shortDescription": "",
       "unlocked": true,
       "unlocks": ["2"],
       "x": 100,
@@ -20,15 +20,15 @@
     },
     {
       "key": "2",
-      "name": "",
-      "description": "",
+      "name": "Second level",
+      "shortDescription": "",
       "x": 150,
       "y": 100
     },
     {
       "key": "bonus",
-      "name": "",
-      "description": "",
+      "name": "Bonus level",
+      "shortDescription": "",
       "unlocked": true,
       "x": 200,
       "y": 100

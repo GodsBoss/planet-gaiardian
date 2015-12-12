@@ -9,6 +9,10 @@ var game = (function(_, Phaser) {
     fill: '#ffffff',
     font: 'normal 10px monospace'
   };
+  var LEVEL_NAME_STYLE = {
+    fill: '#ffffff',
+    font: 'bold 10px monospace'
+  };
   var LEVEL_START_STYLE = {
     fill: '#00ff00',
     font: 'bold 10px monospace'
@@ -126,6 +130,9 @@ var game = (function(_, Phaser) {
     this.levelInfoText = this.add.text(320, 380, '', LEVEL_INFO_STYLE);
     this.levelInfoText.anchor.setTo(0.5, 1);
     this.levelInfoText.visible = false;
+    this.levelNameText = this.add.text(320, 0, '', LEVEL_NAME_STYLE);
+    this.levelNameText.anchor.setTo(0, 1);
+    this.levelNameText.visible = false;
     this.startLevelText = this.add.text(320, 380, 'Start!', LEVEL_START_STYLE);
     this.startLevelText.anchor.setTo(0.5, 0);
     this.startLevelText.inputEnabled = true;
@@ -146,15 +153,19 @@ var game = (function(_, Phaser) {
     var sprite = this.add.sprite(level.x, level.y, 'LevelSelectLevel', spriteFrame);
     sprite.anchor.setTo(0.5, 0.5);
     sprite.inputEnabled = true;
-    sprite.events.onInputUp.add(this.showLevelInfo, this, 0, level.key, level.description);
+    sprite.events.onInputUp.add(this.showLevelInfo, this, 0, level.key, level.name, level.shortDescription);
     return sprite;
   };
 
-  SelectLevel.prototype.showLevelInfo = function(sprite, pointer, $, levelKey, info) {
+  SelectLevel.prototype.showLevelInfo = function(sprite, pointer, $, levelKey, name, info) {
     this.levelInfoText.setText(info);
     this.levelInfoText.visible = true;
+    this.levelNameText.setText(name);
     this.startLevelText.visible = true;
+    this.levelNameText.visible = true;
     this.currentLevelKey = levelKey;
+    var textBounds = this.levelInfoText.getBounds();
+    this.levelNameText.position.setTo(textBounds.x, textBounds.y);
   };
 
   SelectLevel.prototype.highlightStartLevelText = function() {
