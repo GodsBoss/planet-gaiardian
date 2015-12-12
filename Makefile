@@ -1,6 +1,6 @@
 GFX=$(shell cd src/gfx; ls *.xcf | sed -e "{ s/\(.*\).xcf/dist\/gfx\/\\1.png/}")
 
-dist/index.html: dist src/index.html dist/init.js dist/game.js $(GFX)
+dist/index.html: dist src/index.html dist/init.js dist/game.js $(GFX) dist/levels.json
 	cp src/index.html dist
 
 dist:
@@ -11,6 +11,10 @@ dist/init.js: src/js/init.js
 
 dist/game.js: src/js/game.js
 	cp src/js/game.js dist
+
+dist/levels.json: dist src/data/levels.json
+	node src/scripts/checkJson.js src/data/levels.json
+	cp src/data/levels.json dist
 
 node_modules: package.json
 	npm install

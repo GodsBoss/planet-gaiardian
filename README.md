@@ -18,4 +18,5 @@ the other button to use it.
 To build the game, you need:
 - [GIMP](http://www.gimp.org/)
 - [GNU Make](https://www.gnu.org/software/make/)
+- [Node](https://nodejs.org/)
 - [Node package manager](https://www.npmjs.com/)
