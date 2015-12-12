@@ -7,3 +7,6 @@ dist:
 node_modules: package.json
 	npm install
 	touch node_modules
+
+serve: node_modules
+	npm run serve
