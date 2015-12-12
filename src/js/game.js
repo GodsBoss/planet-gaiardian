@@ -169,8 +169,6 @@ var game = (function(_, Phaser) {
     this.state.start('Play', CLEAR_WORLD, !CLEAR_CACHE, this.levels.byKey(this.currentLevelKey));
   };
 
-  SelectLevel.prototype.update = function() {}
-
   Play.prototype.init = function(level) {};
 
   Play.prototype.update = function() {}
