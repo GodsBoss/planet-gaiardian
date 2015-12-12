@@ -20,9 +20,12 @@ serve: node_modules
 dist/gfx: dist
 	mkdir -p dist/gfx
 
-gfx-meta: dist/gfx/preload-screen.png
+gfx-meta: dist/gfx/preload-screen.png dist/gfx/preload-bar.png
 
 dist/gfx/preload-screen.png: dist/gfx
 	src/scripts/xcf2png.sh preload-screen
+
+dist/gfx/preload-bar.png: dist/gfx
+	src/scripts/xcf2png.sh preload-bar
 
 .PHONY: gfx-meta
