@@ -10,6 +10,9 @@ var game = (function(_, Phaser) {
     var game = new Phaser.Game(640, 400, Phaser.AUTO, 'game', null, !TRANSPARENT, !ANTIALIASING);
     game.state.add('boot', createBoot(), AUTOSTART)
     game.state.add('preload', createPreload());
+    game.state.add('selectLevel', createSelectLevel());
+    game.state.add('play', createPlay());
+    game.state.add('showLevelResult', createShowLevelResult());
   };
 
   return myGame;
@@ -39,6 +42,21 @@ function createPreload()
       this.load.setPreloadSprite(preloaderBar);
     }
   }
+}
+
+function createSelectLevel()
+{
+  return {};
+}
+
+function createPlay()
+{
+  return {};
+}
+
+function createShowLevelResult()
+{
+  return {};
 }
 
 })(_, Phaser);
