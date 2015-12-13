@@ -1,10 +1,10 @@
-# Planet Guaiardian
+# Planet Gaiardian
 
 Made for [Ludum Dare #34](http://ludumdare.com/compo/2015/12/09/welcome-to-ludum-dare-34/)!
 
 ## The game
 
-You are Omniplant, the Planet Guaiardian. Your purpose is to let a planet's
+You are Omniplant, the Planet Gaiardian. Your purpose is to let a planet's
 life grow.
 
 Every planet is its own level. You run around the planet, choose your tool and
