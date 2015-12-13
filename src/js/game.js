@@ -206,7 +206,6 @@ var game = (function(_, Phaser) {
     this.addPlanet();
     this.addPlayer();
     this.plants = new Plants(this, this.level);
-    this.addActiveToolMarker();
     this.addTools();
     this.bindKeys();
   };
@@ -223,14 +222,6 @@ var game = (function(_, Phaser) {
     this.player.scale.setTo(2, 2);
     this.player.animations.add('run', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
     this.player.play('run');
-  };
-
-  Play.prototype.addActiveToolMarker = function() {
-    this.activeToolMarker = this.add.sprite(440, 16, 'ActiveToolMarker');
-    this.activeToolMarker.anchor.setTo(0.5, 0);
-    this.activeToolMarker.scale.setTo(2, 2);
-    this.activeToolMarker.animations.add('normal', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
-    this.activeToolMarker.play('normal');
   };
 
   Play.prototype.addTools = function() {
@@ -437,6 +428,11 @@ var game = (function(_, Phaser) {
       this
     );
     this.positionTools();
+    this.activeToolMarker = state.add.sprite(440, 16, 'ActiveToolMarker');
+    this.activeToolMarker.anchor.setTo(0.5, 0);
+    this.activeToolMarker.scale.setTo(2, 2);
+    this.activeToolMarker.animations.add('normal', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
+    this.activeToolMarker.play('normal');
   }
 
   Tools.prototype.positionTools = function() {
