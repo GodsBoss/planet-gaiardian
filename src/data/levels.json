@@ -2,8 +2,8 @@
   "levels": [
     {
       "key": "tutorial",
-      "name": "Tutorial",
-      "shortDescription": "Simple tutorial level.\nExplains the game.",
+      "name": "Try it out!",
+      "shortDescription": "No time limit.\nYou cannot lose.",
       "unlocked": true,
       "x": 50,
       "y": 100,
