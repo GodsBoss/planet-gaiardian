@@ -30,6 +30,16 @@ var game = (function(_, Phaser) {
     fill: '#ffffff',
     font: 'bold 10px monospace'
   };
+  var VICTORY_STYLE = {
+    fill: '#ccffcc',
+    font: 'bold 20px monospace'
+  };
+  var DEFEAT_STYLE = {
+    fill: '#ffcccc',
+    font: 'bold 20px monospace'
+  };
+  var VICTORY_TEXT = 'Victory!';
+  var DEFEAT_TEXT = 'You lost!';
 
   var inherit = (function() {
     function F(){}
@@ -140,8 +150,8 @@ var game = (function(_, Phaser) {
   };
 
   Preload.prototype.create = function() {
-    var levels = new Levels(this.cache.getJSON('levels'));
-    this.state.start('SelectLevel', CLEAR_WORLD, !CLEAR_CACHE, levels);
+    this.game.levels = new Levels(this.cache.getJSON('levels'));
+    this.state.start('SelectLevel', CLEAR_WORLD, !CLEAR_CACHE, this.game.levels);
   };
 
   SelectLevel.prototype.init = function(levels) {
@@ -246,7 +256,7 @@ var game = (function(_, Phaser) {
   Play.prototype.useTool = function() {
     this.plants.useTool(this.tools.current());
     if (this.level.isWon(this.plants)) {
-      this.state.start('ShowLevelResult');
+      this.state.start('ShowLevelResult', CLEAR_WORLD, !CLEAR_CACHE, this.level, true);
     }
   };
 
@@ -255,6 +265,50 @@ var game = (function(_, Phaser) {
     this.planet.rotation = -this.rotation;
     this.plants.move(this.rotation);
   }
+
+  ShowLevelResult.prototype.init = function(level, victorious) {
+    this.level = level;
+    this.victorious = victorious;
+  };
+
+  ShowLevelResult.prototype.create = function() {
+    this.createBackground('PlayBackgroundBlue');
+    this.addPlanet();
+    this.addTitle();
+    this.addOkButton();
+  };
+
+  ShowLevelResult.prototype.addTitle = function() {
+    this.title = this.add.text(10, 10, this.victorious ? VICTORY_TEXT : DEFEAT_TEXT);
+    this.title.anchor.setTo(0, 0);
+    this.title.scale.setTo(2, 2);
+    this.title.setStyle(this.victorious ? VICTORY_STYLE : DEFEAT_STYLE);
+  };
+
+  ShowLevelResult.prototype.addOkButton = function() {
+    this.button = this.add.text(10, 390, 'Back to level selection');
+    this.button.anchor.setTo(0, 1);
+    this.button.scale.setTo(2, 2);
+    this.button.setStyle(LEVEL_START_STYLE);
+    this.button.inputEnabled = true;
+    this.button.events.onInputOver.add(this.highlightOkButton, this);
+    this.button.events.onInputOut.add(this.unhighlightOkButton, this);
+    this.button.events.onInputDown.add(this.backToLevelSelect, this);
+  };
+
+  ShowLevelResult.prototype.highlightOkButton = function() {
+    this.button.setStyle(LEVEL_START_STYLE_HOVER);
+  };
+
+  ShowLevelResult.prototype.unhighlightOkButton = function() {
+    this.button.setStyle(LEVEL_START_STYLE);
+  };
+
+  ShowLevelResult.prototype.backToLevelSelect = function() {
+    this.state.start('SelectLevel', CLEAR_WORLD, !CLEAR_CACHE, this.game.levels);
+  };
+
+  ShowLevelResult.prototype.addPlanet = Play.prototype.addPlanet;
 
   ShowLevelResult.prototype.update = function() {}
 
