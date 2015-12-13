@@ -238,10 +238,10 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.bindKeys = function() {
-    var keyCodeForA = 65;
-    var keyCodeForS = 83;
-    this.input.keyboard.addKey(keyCodeForA).onUp.add(this.switchTool, this);
-    this.input.keyboard.addKey(keyCodeForS).onUp.add(this.useTool, this);
+    var keyCodeForN = 78;
+    var keyCodeForU = 85;
+    this.input.keyboard.addKey(keyCodeForN).onUp.add(this.switchTool, this);
+    this.input.keyboard.addKey(keyCodeForU).onUp.add(this.useTool, this);
   };
 
   Play.prototype.switchTool = function() {
