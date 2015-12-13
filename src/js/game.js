@@ -320,7 +320,7 @@ var game = (function(_, Phaser) {
   };
 
   ShowLevelResult.prototype.create = function() {
-    this.createBackground('PlayBackgroundBlue');
+    this.createBackground(this.level.background);
     this.addPlanet();
     this.addTitle();
     this.addOkButton();
