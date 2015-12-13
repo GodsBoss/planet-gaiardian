@@ -494,7 +494,7 @@
     {
       "key": "green-1",
       "name": "Box Breaker",
-      "shortDescription": "",
+      "shortDescription": "Sometimes things need to\nbe broken to be able\nto create a better world.",
       "planet": "GreenPlanet",
       "miniPlanet": 3,
       "background": "PlayBackgroundBlue",
@@ -600,8 +600,8 @@
     },
     {
       "key": "green-3",
-      "name": "",
-      "shortDescription": "",
+      "name": "Flower Power 2",
+      "shortDescription": "This could have been your ad!",
       "planet": "GreenPlanet",
       "miniPlanet": 3,
       "background": "PlayBackgroundBlue",
@@ -670,8 +670,8 @@
     },
     {
       "key": "green-4",
-      "name": "",
-      "shortDescription": "",
+      "name": "Options",
+      "shortDescription": "Use your tools wisely!",
       "planet": "GreenPlanet",
       "miniPlanet": 3,
       "background": "PlayBackgroundBlue",
