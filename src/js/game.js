@@ -249,19 +249,7 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.useTool = function() {
-    var plant = this.plants.findCurrentPlant();
-    if (plant) {
-      this.attemptToReplacePlant(plant);
-    }
-  };
-
-  Play.prototype.attemptToReplacePlant = function(plant) {
-    var currentTool = this.tools.current();
-    if (currentTool.amount <= 0 || !currentTool.convert[plant.type]) {
-      return;
-    }
-    currentTool.amount--;
-    plant.convertTypeTo(currentTool.convert[plant.type]);
+    this.plants.useTool(this.tools.current());
   };
 
   Play.prototype.update = function() {
@@ -362,8 +350,15 @@ var game = (function(_, Phaser) {
     this.plants.forEach(_.method('move', rotation));
   }
 
-  Plants.prototype.findCurrentPlant = function() {
+  Plants.prototype.current = function() {
     return this.plants.find(_.method('isCurrent'));
+  };
+
+  Plants.prototype.useTool = function(tool) {
+    var currentPlant = this.current();
+    if (currentPlant) {
+      tool.use(currentPlant);
+    }
   };
 
   function Plant(plants, state, type, position) {
@@ -465,6 +460,13 @@ var game = (function(_, Phaser) {
 
   Tool.prototype.setVisibleIndex = function(index) {
     this.sprite.position.setTo(440, index * 50 + 20);
+  };
+
+  Tool.prototype.use = function(plant) {
+    if (this.amount > 0 && this.convert[plant.type]) {
+      this.amount--;
+      plant.convertTypeTo(this.convert[plant.type]);
+    }
   };
 
   var PRELOAD_IMAGES = [
