@@ -226,7 +226,7 @@ var game = (function(_, Phaser) {
   Play.prototype.init = function(level) {
     this.level = level;
     this.rotation = 0;
-    this.createBackground('PlayBackgroundBlue');
+    this.createBackground(this.level.background);
   };
 
   Play.prototype.create = function() {
@@ -240,7 +240,7 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.addPlanet = function() {
-    this.planet = this.add.sprite(200, 200, 'Planet1');
+    this.planet = this.add.sprite(200, 200, this.level.planet);
     this.planet.anchor.setTo(0.5, 0.5);
     this.planet.scale.setTo(2, 2);
   };
