@@ -703,6 +703,7 @@ var game = (function(_, Phaser) {
   };
 
   var PRELOAD_IMAGES = [
+    'DesertPlanet',
     'InvisiblePlant',
     'PlayBackgroundBlue',
     'SelectLevelBackground',
@@ -710,11 +711,13 @@ var game = (function(_, Phaser) {
   ];
 
   var PLANT_SPRITESHEETS = [
+    'CactusWorldPlant',
     'TutorialPlant',
     'YellowFeverPlant'
   ];
 
   var TOOL_SPRITESHEETS = [
+    'CactusWorldTool',
     'TutorialTool',
     'YellowFeverTool'
   ];
