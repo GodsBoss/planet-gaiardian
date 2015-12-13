@@ -321,6 +321,9 @@ var game = (function(_, Phaser) {
     };
   }
 
+  /*
+  * All plants a level contains.
+  */
   function Plants(state, level) {
     this.plants = _.flatten(
       level.plantTypes.map(
@@ -361,6 +364,9 @@ var game = (function(_, Phaser) {
     }
   };
 
+  /*
+  * A single plant.
+  */
   function Plant(plants, state, type, position) {
     this.plants = plants;
     this.type = type;
@@ -410,6 +416,9 @@ var game = (function(_, Phaser) {
     return Math.abs(this.sprite.rotation % (Math.PI*2)) < 0.13;
   };
 
+  /*
+  * All the tools available in the current level.
+  */
   function Tools(state, level) {
     this.tools = level.tools.map(
       function (toolData) {
@@ -448,6 +457,9 @@ var game = (function(_, Phaser) {
     this.positionTools();
   };
 
+  /*
+  * A single tool.
+  */
   function Tool(tools, state, data) {
     this.tools = tools;
     _.extend(this, data);
