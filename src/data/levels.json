@@ -350,6 +350,146 @@
           "CactusWorld-5": 5
         }
       }
+    },
+    {
+      "key": "mushroom-1",
+      "name": "Mushroom Marsh",
+      "shortDescription": "A strange mushroom world...",
+      "planet": "MushroomPlanet",
+      "miniPlanet": 2,
+      "background": "PlayBackgroundBlue",
+      "unlocked": true,
+      "x": 300,
+      "y": 100,
+      "time": 45,
+      "tools": [
+        {
+          "key": "Mushroom-1",
+          "convert": {
+            "Mushroom-2": "Mushroom-1"
+          },
+          "amount": 666
+        },
+        {
+          "key": "Mushroom-2",
+          "convert": {
+            "Mushroom-1": "Mushroom-3"
+          },
+          "amount": 3
+        },
+        {
+          "key": "Mushroom-3",
+          "convert": {
+            "Mushroom-3": "Mushroom-1"
+          }
+        },
+        {
+          "key": "Mushroom-4",
+          "convert": {
+            "Mushroom-1": "Mushroom-2"
+          }
+        }
+      ],
+      "firstTool": "Mushroom-1",
+      "plantTypes": [
+        {
+          "key": "Mushroom-1"
+        },
+        {
+          "key": "Mushroom-2"
+        },
+        {
+          "key": "Mushroom-3"
+        }
+      ],
+      "plants": {
+        "Mushroom-1": [
+          0.4,
+          2.5
+        ],
+        "Mushroom-2": [
+          1.8,
+          2.1,
+          3,
+          5.1,
+          6.2
+        ],
+        "Mushroom-3": [
+          4
+        ]
+      },
+      "victory": {
+        "normal": {
+          "Mushroom-2": 4,
+          "Mushroom-3": 4
+        }
+      }
+    },
+    {
+      "key": "mushroom-2",
+      "name": "Flower Power",
+      "shortDescription": "If life gives you cacti,\ncrush them and make flowers.",
+      "planet": "MushroomPlanet",
+      "miniPlanet": 2,
+      "background": "PlayBackgroundBlue",
+      "unlocked": true,
+      "x": 350,
+      "y": 100,
+      "time": 30,
+      "tools": [
+        {
+          "key": "CactusWorld-3",
+          "convert": {
+            "CactusWorld-3": "CactusWorld-1"
+          },
+          "amount": 8
+        },
+        {
+          "key": "Tutorial-1",
+          "convert": {
+            "CactusWorld-1": "Tutorial-2"
+          },
+          "amount": 3
+        },
+        {
+          "key": "Tutorial-2",
+          "convert": {
+            "CactusWorld-1": "Tutorial-3"
+          },
+          "amount": 3
+        }
+      ],
+      "firstTool": "CactusWorld-3",
+      "plantTypes": [
+        {
+          "key": "CactusWorld-1"
+        },
+        {
+          "key": "CactusWorld-3"
+        },
+        {
+          "key": "Tutorial-2"
+        },
+        {
+          "key": "Tutorial-3"
+        }
+      ],
+      "plants": {
+        "CactusWorld-3": [
+          2.0,
+          2.4,
+          4.1,
+          4.5,
+          5.8,
+          6.1
+        ]
+      },
+      "victory": {
+        "normal": {
+          "Tutorial-2": 3,
+          "Tutorial-3": 3
+        }
+      }
     }
   ]
 }

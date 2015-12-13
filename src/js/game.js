@@ -495,6 +495,7 @@ var game = (function(_, Phaser) {
     this.plants = plants;
     this.type = type;
     this.position = position;
+    this.state = state;
 
     var spriteInfo = splitType(type, 'Plant', 2);
     var frameIndex = spriteInfo.frameIndex;
@@ -525,15 +526,18 @@ var game = (function(_, Phaser) {
   Plant.prototype.convertTypeTo = function (newType) {
     this.plants.counts[this.type]--;
     this.plants.counts[newType]++;
-    this.sprite.kill();
     this.type = newType;
+    var spriteInfo = splitType(this.type, 'Plant', 2);
+    var newSprite = this.state.add.sprite(this.sprite.x, this.sprite.y, spriteInfo.spriteKey);
+    newSprite.scale.setTo(2, 2);
+    newSprite.anchor.setTo(0.5, 0.5);
+    newSprite.animations.add('stand', [spriteInfo.frameIndex-1, spriteInfo.frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
+    newSprite.play('stand');
+    this.state.player.bringToTop();
+    this.sprite.kill();
     this.sprite.animations.getAnimation('stand').stop();
     this.sprite.animations.getAnimation('stand').destroy();
-    var spriteInfo = splitType(this.type, 'Plant', 2);
-    this.sprite.key = spriteInfo.spriteKey;
-    this.sprite.revive();
-    this.sprite.animations.add('stand', [spriteInfo.frameIndex-1, spriteInfo.frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
-    this.sprite.play('stand');
+    this.sprite = newSprite;
   };
 
   Plant.prototype.isCurrent = function() {
@@ -705,19 +709,22 @@ var game = (function(_, Phaser) {
   var PRELOAD_IMAGES = [
     'DesertPlanet',
     'InvertedYellowBackground',
-    'Planet1'
+    'MushroomPlanet',
+    'Planet1',
     'PlayBackgroundBlue',
     'SelectLevelBackground',
   ];
 
   var PLANT_SPRITESHEETS = [
     'CactusWorldPlant',
+    'MushroomPlant',
     'TutorialPlant',
     'YellowFeverPlant'
   ];
 
   var TOOL_SPRITESHEETS = [
     'CactusWorldTool',
+    'MushroomTool',
     'TutorialTool',
     'YellowFeverTool'
   ];
