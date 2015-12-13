@@ -159,6 +159,7 @@ var game = (function(_, Phaser) {
     this.loadSpritesheet('LevelSelectLevel', 30, 30);
     this.loadSpritesheet('Player', 15, 15);
     this.loadSpritesheet('ActiveToolMarker', 24, 24);
+    this.loadSpritesheet('ActivePlanetMarker', 30, 30);
     this.load.json('levels', 'levels.json?' + new Date());
   };
 
@@ -169,6 +170,7 @@ var game = (function(_, Phaser) {
 
   SelectLevel.prototype.create = function() {
     this.createBackground();
+    this.addActiveLevelMarker();
     this.levelSprites = this.game.levels.available().map(this.createLevelSprite, this);
     this.levelInfoText = this.add.text(320, 380, '', LEVEL_INFO_STYLE);
     this.levelInfoText.anchor.setTo(0.5, 1);
@@ -186,6 +188,20 @@ var game = (function(_, Phaser) {
     this.currentLevelKey = null;
   };
 
+  SelectLevel.prototype.addActiveLevelMarker = function() {
+    this.activeLevelMarker = this.add.sprite(100, 100, 'ActivePlanetMarker');
+    this.activeLevelMarker.anchor.setTo(0.5, 0.5);
+    this.activeLevelMarker.scale.setTo(2, 2);
+    this.activeLevelMarker.animations.add('loop', ALL_FRAMES, 16, LOOP_ANIMATION);
+    this.activeLevelMarker.play('loop');
+    this.activeLevelMarker.visible = false;
+  };
+
+  SelectLevel.prototype.showActiveLevelMarker = function(sprite) {
+    this.activeLevelMarker.position.setTo(sprite.x, sprite.y);
+    this.activeLevelMarker.visible = true;
+  };
+
   SelectLevel.prototype.createLevelSprite = function(level) {
     var spriteFrame = 0;
     if (level.finished) {
@@ -201,6 +217,7 @@ var game = (function(_, Phaser) {
   };
 
   SelectLevel.prototype.showLevelInfo = function(sprite, pointer, $, levelKey, name, info) {
+    this.showActiveLevelMarker(sprite);
     this.levelInfoText.setText(info);
     this.levelInfoText.visible = true;
     this.levelNameText.setText(name);
