@@ -133,21 +133,6 @@
           "YellowFever-3": 10
         }
       }
-    },
-    {
-      "key": "2",
-      "name": "Second level",
-      "shortDescription": "",
-      "x": 150,
-      "y": 100
-    },
-    {
-      "key": "bonus",
-      "name": "Bonus level",
-      "shortDescription": "",
-      "unlocked": false,
-      "x": 200,
-      "y": 100
     }
   ]
 }
