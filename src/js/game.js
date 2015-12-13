@@ -538,6 +538,7 @@ var game = (function(_, Phaser) {
       },
       this
     );
+    console.log(this);
     this.current().setActive();
     this.positionTools();
     this.activeToolMarker = state.add.sprite(400, 30, 'ActiveToolMarker');
@@ -688,11 +689,13 @@ var game = (function(_, Phaser) {
   ];
 
   var PLANT_SPRITESHEETS = [
-    'TutorialPlant'
+    'TutorialPlant',
+    'YellowFeverPlant'
   ];
 
   var TOOL_SPRITESHEETS = [
-    'TutorialTool'
+    'TutorialTool',
+    'YellowFeverTool'
   ];
 
   return myGame;
