@@ -490,6 +490,146 @@
           "Tutorial-3": 3
         }
       }
+    },
+    {
+      "key": "green-1",
+      "name": "",
+      "shortDescription": "",
+      "planet": "GreenPlanet",
+      "miniPlanet": 3,
+      "background": "PlayBackgroundBlue",
+      "unlocked": true,
+      "x": 450,
+      "y": 100,
+      "time": 30,
+      "tools": [
+        {
+          "key": "Green-1",
+          "convert": {
+            "Green-5": "Green-8",
+            "Green-6": "Green-9",
+            "Green-7": "Green-10"
+          },
+          "amount": 9
+        }
+      ],
+      "firstTool": "Green-1",
+      "plantTypes": [
+        {
+          "key": "Green-5"
+        },
+        {
+          "key": "Green-6"
+        },
+        {
+          "key": "Green-7"
+        },
+        {
+          "key": "Green-8"
+        },
+        {
+          "key": "Green-9"
+        },
+        {
+          "key": "Green-10"
+        }
+      ],
+      "plants": {
+        "Green-5": [
+          0,
+          4.05,
+          4.35,
+          5.1
+        ],
+        "Green-6": [
+          1.8,
+          3.4,
+          3.7,
+          5.5
+        ],
+        "Green-7": [
+          2.8,
+          3.15,
+          4.8
+        ]
+      },
+      "victory": {
+        "normal": {
+          "Green-8": 3,
+          "Green-9": 3,
+          "Green-10": 3
+        }
+      }
+    },
+    {
+      "key": "green-2",
+      "name": "",
+      "shortDescription": "",
+      "planet": "GreenPlanet",
+      "miniPlanet": 3,
+      "background": "PlayBackgroundBlue",
+      "unlocked": true,
+      "x": 500,
+      "y": 100,
+      "time": 45,
+      "tools": [
+        {
+          "key": "CactusWorld-3",
+          "convert": {
+            "Green-1": "Green-2",
+            "Green-4": "Green-3"
+          },
+          "amount": 10
+        },
+        {
+          "key": "Green-2",
+          "convert": {
+            "Green-3": "Green-4"
+          },
+          "amount": 6
+        }
+      ],
+      "firstTool": "CactusWorld-3",
+      "plantTypes": [
+        {
+          "key": "Green-1"
+        },
+        {
+          "key": "Green-2"
+        },
+        {
+          "key": "Green-3"
+        },
+        {
+          "key": "Green-4"
+        }
+      ],
+      "plants": {
+        "Green-1": [
+          0.4,
+          0.75,
+          1.05,
+          1.35,
+          1.7,
+          2.7,
+          3.3
+        ],
+        "Green-3": [
+          3,
+          3.6,
+          3.9,
+          4.25,
+          4.5,
+          4.8,
+          5.1
+        ]
+      },
+      "victory": {
+        "normal": {
+          "Green-2": 5,
+          "Green-4": 6
+        }
+      }
     }
   ]
 }

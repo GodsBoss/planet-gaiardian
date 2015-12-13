@@ -708,6 +708,7 @@ var game = (function(_, Phaser) {
 
   var PRELOAD_IMAGES = [
     'DesertPlanet',
+    'GreenPlanet',
     'InvertedYellowBackground',
     'MushroomPlanet',
     'Planet1',
@@ -717,6 +718,7 @@ var game = (function(_, Phaser) {
 
   var PLANT_SPRITESHEETS = [
     'CactusWorldPlant',
+    'GreenPlant',
     'MushroomPlant',
     'TutorialPlant',
     'YellowFeverPlant'
@@ -724,6 +726,7 @@ var game = (function(_, Phaser) {
 
   var TOOL_SPRITESHEETS = [
     'CactusWorldTool',
+    'GreenTool',
     'MushroomTool',
     'TutorialTool',
     'YellowFeverTool'
