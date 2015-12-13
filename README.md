@@ -20,3 +20,13 @@ To build the game, you need:
 - [GNU Make](https://www.gnu.org/software/make/)
 - [Node](https://nodejs.org/)
 - [Node package manager](https://www.npmjs.com/)
+
+## TODO
+
+These are after-Ludum-Dare-cleanup items.
+
+- Handle scaling in a sane way.
+- Make rotation speed configurable per level.
+- Split game.js into multiple files.
+- JS build process / minification.
+- Fix PNG creation script so it does not show exceptions anymore.
