@@ -263,6 +263,7 @@ var game = (function(_, Phaser) {
   }
 
   ShowLevelResult.prototype.init = function(level, victorious) {
+    this.game.levels.won(level);
     this.level = level;
     this.victorious = victorious;
   };
@@ -334,6 +335,13 @@ var game = (function(_, Phaser) {
     return this.levels.find(function(level) {
       return level.key === key;
     });
+  };
+
+  Levels.prototype.won = function(beatenLevel) {
+    beatenLevel.unlocksSomeOtherLevel = false;
+    this.levels.filter(function(level) {
+      return _.includes(beatenLevel.unlocks, level.key)
+    }).forEach(function(level) { level.unlocked = true; });
   };
 
   /*
