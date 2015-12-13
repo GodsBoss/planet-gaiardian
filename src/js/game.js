@@ -156,7 +156,6 @@ var game = (function(_, Phaser) {
     PRELOAD_IMAGES.forEach(function(image) {this.loadImage(image);}, this);
     PLANT_SPRITESHEETS.forEach(function(sheet) {this.loadPlantSpritesheet(sheet);}, this);
     TOOL_SPRITESHEETS.forEach(function(sheet) {this.loadToolSpritesheet(sheet);}, this);
-    this.loadSpritesheet('LevelSelectLevel', 30, 30);
     this.loadSpritesheet('Player', 15, 15);
     this.loadSpritesheet('ActiveToolMarker', 24, 24);
     this.loadSpritesheet('ActivePlanetMarker', 30, 30);
