@@ -48,6 +48,11 @@ var game = (function(_, Phaser) {
   var TIMER_STYLE_CRITICAL = _.merge({}, TIMER_STYLE, { fill: '#ff0000'});
   var TIMER_DANGEROUS_THRESHOLD = 3;
   var TIMER_CRITICAL_THRESHOLD = 2;
+  var VICTORY_CONDITION_STYLE = {
+    fill: '#ffffff',
+    font: 'normal 12px monospace'
+  };
+  var VICTORY_CONDITION_STYLE_OK = _.merge({}, VICTORY_CONDITION_STYLE, { fill: '#00ff00' });
 
   var inherit = (function() {
     function F(){}
@@ -229,6 +234,7 @@ var game = (function(_, Phaser) {
     this.addPlayer();
     this.plants = new Plants(this, this.level);
     this.tools = new Tools(this, this.level);
+    this.addVictoryConditions();
     this.addTimer();
     this.bindKeys();
   };
@@ -245,6 +251,12 @@ var game = (function(_, Phaser) {
     this.player.scale.setTo(2, 2);
     this.player.animations.add('run', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
     this.player.play('run');
+  };
+
+  Play.prototype.addVictoryConditions = function()
+  {
+    this.victoryConditions = new VictoryConditions(this, this.level);
+    this.victoryConditions.show(this.plants);
   };
 
   Play.prototype.addTimer = function() {
@@ -264,6 +276,7 @@ var game = (function(_, Phaser) {
 
   Play.prototype.useTool = function() {
     this.plants.useTool(this.tools.current());
+    this.victoryConditions.show(this.plants);
     if (this.level.isWon(this.plants)) {
       this.state.start('ShowLevelResult', CLEAR_WORLD, !CLEAR_CACHE, this.level, true);
     }
@@ -449,6 +462,10 @@ var game = (function(_, Phaser) {
     return this.counts[type] >= count;
   };
 
+  Plants.prototype.amountByType = function(type) {
+    return this.counts[type];
+  };
+
   /*
   * A single plant.
   */
@@ -624,6 +641,43 @@ var game = (function(_, Phaser) {
 
   Timer.prototype.timeIsUp = function() {
     return this.time <= 0;
+  };
+
+  function VictoryConditions(state, level) {
+    var index = 0;
+    this.conditions = _.map(
+      level.victory.normal,
+      function (amount, type) {
+        return new VictoryCondition(state, index++, type, amount);
+      }
+    );
+  }
+
+  VictoryConditions.prototype.show = function(plants) {
+    this.conditions.forEach(_.method('show', plants));
+  };
+
+  function VictoryCondition(state, index, type, neededAmount) {
+    this.type = type;
+    this.neededAmount = neededAmount;
+    var spriteInfo = splitType(type, 'Plant', 2);
+    this.sprite = state.add.sprite(100 * index + 10, 390, spriteInfo.spriteKey);
+    this.sprite.anchor.setTo(0, 1);
+    this.sprite.scale.setTo(2, 2);
+    this.sprite.animations.add('stand', [spriteInfo.frameIndex-1, spriteInfo.frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
+    this.sprite.play('stand');
+    this.text = state.add.text(100 * index + 40, 375, '0 / ' + this.neededAmount, VICTORY_CONDITION_STYLE);
+    this.sprite.anchor.setTo(0, 1);
+  }
+
+  VictoryCondition.prototype.show = function(plants) {
+    var amount = plants.amountByType(this.type);
+    this.text.setText(amount + ' / ' + this.neededAmount);
+    if (amount >= this.neededAmount) {
+      this.text.setStyle(VICTORY_CONDITION_STYLE_OK);
+    } else {
+      this.text.setStyle(VICTORY_CONDITION_STYLE);
+    }
   };
 
   var PRELOAD_IMAGES = [
