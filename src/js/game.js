@@ -538,7 +538,6 @@ var game = (function(_, Phaser) {
       },
       this
     );
-    console.log(this);
     this.current().setActive();
     this.positionTools();
     this.activeToolMarker = state.add.sprite(400, 30, 'ActiveToolMarker');
