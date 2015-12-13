@@ -577,7 +577,8 @@
           "key": "CactusWorld-3",
           "convert": {
             "Green-1": "Green-2",
-            "Green-4": "Green-3"
+            "Green-4": "Green-3",
+            "Green-11": "Green-2"
           },
           "amount": 10
         },
@@ -587,6 +588,13 @@
             "Green-3": "Green-4"
           },
           "amount": 6
+        },
+        {
+          "key": "Green-3",
+          "convert": {
+            "Green-1": "Green-11"
+          },
+          "amount": 3
         }
       ],
       "firstTool": "CactusWorld-3",
@@ -602,6 +610,9 @@
         },
         {
           "key": "Green-4"
+        },
+        {
+          "key": "Green-11"
         }
       ],
       "plants": {
@@ -626,8 +637,9 @@
       },
       "victory": {
         "normal": {
-          "Green-2": 5,
-          "Green-4": 6
+          "Green-2": 3,
+          "Green-4": 6,
+          "Green-11": 3
         }
       }
     }
