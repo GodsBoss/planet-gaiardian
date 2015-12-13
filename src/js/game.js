@@ -46,8 +46,8 @@ var game = (function(_, Phaser) {
   };
   var TIMER_STYLE_DANGEROUS = _.merge({}, TIMER_STYLE, { fill: '#ffff00'});
   var TIMER_STYLE_CRITICAL = _.merge({}, TIMER_STYLE, { fill: '#ff0000'});
-  var TIMER_DANGEROUS_THRESHOLD = 3;
-  var TIMER_CRITICAL_THRESHOLD = 2;
+  var TIMER_DANGEROUS_THRESHOLD = 20;
+  var TIMER_CRITICAL_THRESHOLD = 5;
   var VICTORY_CONDITION_STYLE = {
     fill: '#ffffff',
     font: 'normal 12px monospace'
