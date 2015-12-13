@@ -253,8 +253,8 @@ var game = (function(_, Phaser) {
 
   Play.prototype.create = function() {
     this.addPlanet();
-    this.addPlayer();
     this.plants = new Plants(this, this.level);
+    this.addPlayer();
     this.tools = new Tools(this, this.level);
     this.addVictoryConditions();
     this.addTimer();
