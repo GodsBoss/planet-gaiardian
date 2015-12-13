@@ -22,6 +22,14 @@ var game = (function(_, Phaser) {
     font: 'bold 10px monospace'
   };
   var LEVEL_START_STYLE_HOVER = _.merge({}, LEVEL_START_STYLE, { fill: '#ffff00'});
+  var TOOL_STYLE = {
+    fill: '#aaaaaa',
+    font: 'normal 10px monospace'
+  };
+  var CURRENT_TOOL_STYLE = {
+    fill: '#ffffff',
+    font: 'bold 10px monospace'
+  };
 
   var inherit = (function() {
     function F(){}
@@ -423,9 +431,10 @@ var game = (function(_, Phaser) {
       },
       this
     );
+    this.current().setActive();
     this.positionTools();
-    this.activeToolMarker = state.add.sprite(440, 16, 'ActiveToolMarker');
-    this.activeToolMarker.anchor.setTo(0.5, 0);
+    this.activeToolMarker = state.add.sprite(440, 30, 'ActiveToolMarker');
+    this.activeToolMarker.anchor.setTo(0.5, 0.5);
     this.activeToolMarker.scale.setTo(2, 2);
     this.activeToolMarker.animations.add('normal', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
     this.activeToolMarker.play('normal');
@@ -445,7 +454,9 @@ var game = (function(_, Phaser) {
   };
 
   Tools.prototype.switch = function() {
+    this.current().setInactive();
     this.currentToolIndex = (this.currentToolIndex + 1) % this.tools.length;
+    this.current().setActive();
     this.positionTools();
   };
 
@@ -458,19 +469,38 @@ var game = (function(_, Phaser) {
     this.amount = _.isFinite(this.amount) ? this.amount : +Infinity;
     var spriteInfo = splitType(data.key, 'Tool', 1);
     this.sprite = state.add.sprite(0, 0, spriteInfo.spriteKey, spriteInfo.frameIndex);
-    this.sprite.anchor.setTo(0.5, 0);
+    this.sprite.anchor.setTo(0.5, 0.5);
     this.sprite.scale.setTo(2, 2);
+    this.text = state.add.text(0, 0, '', TOOL_STYLE);
+    this.text.anchor.setTo(0, 0.5);
+    this.text.scale.setTo(2, 2);
+    this.showAmount();
   }
 
   Tool.prototype.setVisibleIndex = function(index) {
-    this.sprite.position.setTo(440, index * 50 + 20);
+    var y = index * 50 + 30;
+    this.sprite.position.setTo(440, y);
+    this.text.position.setTo(480, y + 7); // For some reason, an offset is needed to look good.
   };
 
   Tool.prototype.use = function(plant) {
     if (this.amount > 0 && this.convert[plant.type]) {
       this.amount--;
+      this.showAmount();
       plant.convertTypeTo(this.convert[plant.type]);
     }
+  };
+
+  Tool.prototype.showAmount = function() {
+    this.text.setText(_.isFinite(this.amount) ? this.amount : '∞');
+  };
+
+  Tool.prototype.setActive = function() {
+    this.text.setStyle(CURRENT_TOOL_STYLE);
+  };
+
+  Tool.prototype.setInactive = function() {
+    this.text.setStyle(TOOL_STYLE);
   };
 
   var PRELOAD_IMAGES = [
