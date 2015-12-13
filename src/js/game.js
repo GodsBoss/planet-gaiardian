@@ -301,7 +301,7 @@ var game = (function(_, Phaser) {
   };
 
   ShowLevelResult.prototype.backToLevelSelect = function() {
-    this.state.start('SelectLevel', CLEAR_WORLD, !CLEAR_CACHE, this.game.levels);
+    this.state.start('SelectLevel');
   };
 
   ShowLevelResult.prototype.addPlanet = Play.prototype.addPlanet;
