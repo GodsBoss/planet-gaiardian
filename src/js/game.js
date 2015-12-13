@@ -523,7 +523,7 @@ var game = (function(_, Phaser) {
     );
     this.current().setActive();
     this.positionTools();
-    this.activeToolMarker = state.add.sprite(440, 30, 'ActiveToolMarker');
+    this.activeToolMarker = state.add.sprite(400, 30, 'ActiveToolMarker');
     this.activeToolMarker.anchor.setTo(0.5, 0.5);
     this.activeToolMarker.scale.setTo(2, 2);
     this.activeToolMarker.animations.add('normal', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
@@ -568,8 +568,8 @@ var game = (function(_, Phaser) {
 
   Tool.prototype.setVisibleIndex = function(index) {
     var y = index * 50 + 30;
-    this.sprite.position.setTo(440, y);
-    this.text.position.setTo(480, y + 4); // For some reason, an offset is needed to look good.
+    this.sprite.position.setTo(400, y);
+    this.text.position.setTo(430, y + 4); // For some reason, an offset is needed to look good.
   };
 
   Tool.prototype.use = function(plant) {
