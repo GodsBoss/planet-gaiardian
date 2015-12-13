@@ -70,8 +70,11 @@ var game = (function(_, Phaser) {
     game.state.add('SelectLevel', new SelectLevel());
     game.state.add('Play', new Play());
     game.state.add('ShowLevelResult', new ShowLevelResult());
+    game.soundActive = true;
     game.playRandomSound = function(container) {
-      this.sound.play(SOUNDS[Math.floor(Math.random() * SOUNDS.length)]);
+      if (this.soundActive) {
+        this.sound.play(SOUNDS[Math.floor(Math.random() * SOUNDS.length)]);
+      }
     };
   };
 
@@ -164,6 +167,7 @@ var game = (function(_, Phaser) {
     this.loadSpritesheet('ActiveToolMarker', 24, 24);
     this.loadSpritesheet('ActivePlanetMarker', 30, 30);
     this.loadSpritesheet('MiniPlanets', 15, 15);
+    this.loadSpritesheet('Sound', 20, 20);
     this.load.json('levels', 'levels.json?' + new Date());
   };
 
@@ -175,6 +179,7 @@ var game = (function(_, Phaser) {
   SelectLevel.prototype.create = function() {
     this.createBackground();
     this.addActiveLevelMarker();
+    this.addSoundSprite();
     this.levelSprites = this.game.levels.available().map(this.createLevelSprite, this);
     this.levelInfoText = this.add.text(320, 380, '', LEVEL_INFO_STYLE);
     this.levelInfoText.anchor.setTo(0.5, 1);
@@ -199,6 +204,19 @@ var game = (function(_, Phaser) {
     this.activeLevelMarker.animations.add('loop', ALL_FRAMES, 16, LOOP_ANIMATION);
     this.activeLevelMarker.play('loop');
     this.activeLevelMarker.visible = false;
+  };
+
+  SelectLevel.prototype.addSoundSprite = function() {
+    this.soundSprite = this.add.sprite(630, 390, 'Sound');
+    this.soundSprite.anchor.setTo(1, 1);
+    this.soundSprite.scale.setTo(2, 2);
+    this.soundSprite.inputEnabled = true;
+    this.soundSprite.events.onInputUp.add(this.toggleSound, this);
+  };
+
+  SelectLevel.prototype.toggleSound = function() {
+    this.game.soundActive = !this.game.soundActive;
+    this.soundSprite.frame = this.game.soundActive ? 0 : 1;
   };
 
   SelectLevel.prototype.showActiveLevelMarker = function(sprite) {
@@ -719,7 +737,7 @@ var game = (function(_, Phaser) {
     'MushroomPlanet',
     'Planet1',
     'PlayBackgroundBlue',
-    'SelectLevelBackground',
+    'SelectLevelBackground'
   ];
 
   var PLANT_SPRITESHEETS = [
