@@ -40,6 +40,14 @@ var game = (function(_, Phaser) {
   };
   var VICTORY_TEXT = 'Victory!';
   var DEFEAT_TEXT = 'You lost!';
+  var TIMER_STYLE = {
+    fill: '#ffffff',
+    font: 'normal 20px monospace'
+  };
+  var TIMER_STYLE_DANGEROUS = _.merge({}, TIMER_STYLE, { fill: '#ffff00'});
+  var TIMER_STYLE_CRITICAL = _.merge({}, TIMER_STYLE, { fill: '#ff0000'});
+  var TIMER_DANGEROUS_THRESHOLD = 3;
+  var TIMER_CRITICAL_THRESHOLD = 2;
 
   var inherit = (function() {
     function F(){}
@@ -221,6 +229,7 @@ var game = (function(_, Phaser) {
     this.addPlayer();
     this.plants = new Plants(this, this.level);
     this.tools = new Tools(this, this.level);
+    this.addTimer();
     this.bindKeys();
   };
 
@@ -236,6 +245,10 @@ var game = (function(_, Phaser) {
     this.player.scale.setTo(2, 2);
     this.player.animations.add('run', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
     this.player.play('run');
+  };
+
+  Play.prototype.addTimer = function() {
+    this.timer = new Timer(this, this.level.time);
   };
 
   Play.prototype.bindKeys = function() {
@@ -260,6 +273,9 @@ var game = (function(_, Phaser) {
     this.rotation += 0.01;
     this.planet.rotation = -this.rotation;
     this.plants.move(this.rotation);
+    if (this.timer.timeIsUp()) {
+      this.state.start('ShowLevelResult', CLEAR_WORLD, !CLEAR_CACHE, this.level, false);
+    }
   }
 
   ShowLevelResult.prototype.init = function(level, victorious) {
@@ -574,6 +590,40 @@ var game = (function(_, Phaser) {
 
   Tool.prototype.setInactive = function() {
     this.text.setStyle(TOOL_STYLE);
+  };
+
+  /*
+  * For time-critical missions.
+  */
+  function Timer(state, time) {
+    if (!_.isFinite(time)) {
+      this.time = Infinity;
+      return this;
+    }
+    this.time = time;
+    this.text = state.add.text(10, 10, '', TIMER_STYLE);
+    this.text.anchor.setTo(0, 0);
+    this.updateTime();
+    state.time.events.repeat(1000, Infinity, this.tick, this);
+  }
+
+  Timer.prototype.updateTime = function() {
+    this.text.setText(this.time);
+    if (this.time <= TIMER_DANGEROUS_THRESHOLD) {
+      this.text.setStyle(TIMER_STYLE_DANGEROUS);
+    }
+    if (this.time <= TIMER_CRITICAL_THRESHOLD) {
+      this.text.setStyle(TIMER_STYLE_CRITICAL);
+    }
+  };
+
+  Timer.prototype.tick = function() {
+    this.time = Math.max(this.time - 1, 0);
+    this.updateTime();
+  };
+
+  Timer.prototype.timeIsUp = function() {
+    return this.time <= 0;
   };
 
   var PRELOAD_IMAGES = [
