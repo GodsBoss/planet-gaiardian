@@ -234,37 +234,7 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.addTools = function() {
-    this.tools = this.level.tools.map(
-      function (toolData) {
-        var sprite = this.add.sprite(0, 0, toolData.key.replace(/-([0-9]+)$/, 'Tool'), toolData.key.replace(/^.*-([0-9]+)$/, '$1')-1);
-        _.extend(sprite, toolData);
-        sprite.anchor.setTo(0.5, 0);
-        sprite.scale.setTo(2, 2);
-        return sprite;
-      },
-      this
-    );
-    this.currentToolIndex = 0;
-    this.tools.some(function(tool) {
-        if (tool.key === this.level.firstTool) {
-          return true;
-        } else {
-          this.currentToolIndex++;
-        }
-      },
-      this
-    );
-    this.positionTools();
-  };
-
-  Play.prototype.positionTools = function() {
-    this.tools.forEach(
-      function(tool, index, tools) {
-        var visibleIndex = (index - this.currentToolIndex + tools.length) % tools.length;
-        tool.position.setTo(440, visibleIndex * 50 + 20);
-      },
-      this
-    );
+    this.tools = new Tools(this, this.level);
   };
 
   Play.prototype.bindKeys = function() {
@@ -275,8 +245,7 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.switchTool = function() {
-    this.currentToolIndex = (this.currentToolIndex + 1) % this.tools.length;
-    this.positionTools();
+    this.tools.switch();
   };
 
   Play.prototype.useTool = function() {
@@ -287,7 +256,7 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.attemptToReplacePlant = function(plant) {
-    var currentTool = this.tools[this.currentToolIndex];
+    var currentTool = this.tools.current();
     if (currentTool.amount <= 0 || !currentTool.convert[plant.type]) {
       return;
     }
@@ -444,6 +413,58 @@ var game = (function(_, Phaser) {
 
   Plant.prototype.isCurrent = function() {
     return Math.abs(this.sprite.rotation % (Math.PI*2)) < 0.13;
+  };
+
+  function Tools(state, level) {
+    this.tools = level.tools.map(
+      function (toolData) {
+        return new Tool(this, state, toolData);
+      },
+      this
+    );
+    this.currentToolIndex = 0;
+    this.tools.some(function(tool) {
+        if (tool.key === level.firstTool) {
+          return true;
+        } else {
+          this.currentToolIndex++;
+        }
+      },
+      this
+    );
+    this.positionTools();
+  }
+
+  Tools.prototype.positionTools = function() {
+    this.tools.forEach(
+      function(tool, index, tools) {
+        tool.setVisibleIndex((index - this.currentToolIndex + tools.length) % tools.length)
+      },
+      this
+    );
+  };
+
+  Tools.prototype.current = function() {
+    return this.tools[this.currentToolIndex];
+  };
+
+  Tools.prototype.switch = function() {
+    this.currentToolIndex = (this.currentToolIndex + 1) % this.tools.length;
+    this.positionTools();
+  };
+
+  function Tool(tools, state, data) {
+    this.tools = tools;
+    _.extend(this, data);
+    this.amount = _.isFinite(this.amount) ? this.amount : +Infinity;
+    var spriteInfo = splitType(data.key, 'Tool', 1);
+    this.sprite = state.add.sprite(0, 0, spriteInfo.spriteKey, spriteInfo.frameIndex);
+    this.sprite.anchor.setTo(0.5, 0);
+    this.sprite.scale.setTo(2, 2);
+  }
+
+  Tool.prototype.setVisibleIndex = function(index) {
+    this.sprite.position.setTo(440, index * 50 + 20);
   };
 
   var PRELOAD_IMAGES = [
