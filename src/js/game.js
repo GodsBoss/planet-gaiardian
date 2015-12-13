@@ -245,6 +245,9 @@ var game = (function(_, Phaser) {
 
   Play.prototype.useTool = function() {
     this.plants.useTool(this.tools.current());
+    if (this.level.isWon(this.plants)) {
+      this.state.start('ShowLevelResult');
+    }
   };
 
   Play.prototype.update = function() {
@@ -297,6 +300,15 @@ var game = (function(_, Phaser) {
     // Must be array
     this.unlocks = Array.isArray(this.unlocks) ? this.unlocks : [];
   }
+
+  Level.prototype.isWon = function(plants) {
+    return _.every(
+      this.victory.normal,
+      function(countNeeded, type){
+        return plants.hasAtLeast(type, countNeeded);
+      }
+    );
+  };
 
   /*
   * Takes a type of the form 'Foobar-2', a suffix and the number of frames for
@@ -357,6 +369,10 @@ var game = (function(_, Phaser) {
     if (currentPlant) {
       tool.use(currentPlant);
     }
+  };
+
+  Plants.prototype.hasAtLeast = function(type, count) {
+    return this.counts[type] >= count;
   };
 
   /*
