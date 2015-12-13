@@ -151,16 +151,12 @@ var game = (function(_, Phaser) {
 
   Preload.prototype.create = function() {
     this.game.levels = new Levels(this.cache.getJSON('levels'));
-    this.state.start('SelectLevel', CLEAR_WORLD, !CLEAR_CACHE, this.game.levels);
-  };
-
-  SelectLevel.prototype.init = function(levels) {
-    this.levels = levels;
+    this.state.start('SelectLevel');
   };
 
   SelectLevel.prototype.create = function() {
     this.createBackground();
-    this.levelSprites = this.levels.available().map(this.createLevelSprite, this);
+    this.levelSprites = this.game.levels.available().map(this.createLevelSprite, this);
     this.levelInfoText = this.add.text(320, 380, '', LEVEL_INFO_STYLE);
     this.levelInfoText.anchor.setTo(0.5, 1);
     this.levelInfoText.visible = false;
@@ -211,7 +207,7 @@ var game = (function(_, Phaser) {
   };
 
   SelectLevel.prototype.startLevel = function() {
-    this.state.start('Play', CLEAR_WORLD, !CLEAR_CACHE, this.levels.byKey(this.currentLevelKey));
+    this.state.start('Play', CLEAR_WORLD, !CLEAR_CACHE, this.game.levels.byKey(this.currentLevelKey));
   };
 
   Play.prototype.init = function(level) {
