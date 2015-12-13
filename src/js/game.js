@@ -205,8 +205,7 @@ var game = (function(_, Phaser) {
   Play.prototype.create = function() {
     this.addPlanet();
     this.addPlayer();
-    this.addPlants();
-    this.setPlantCounts();
+    this.plants = new Plants(this, this.level);
     this.addActiveToolMarker();
     this.addTools();
     this.bindKeys();
@@ -268,61 +267,6 @@ var game = (function(_, Phaser) {
     );
   };
 
-  Play.prototype.addPlants = function() {
-    this.plants = _.flatten(
-      this.level.plantTypes.map(
-        function (type) {
-          if (!this.level.plants[type.key]) {
-            return [];
-          }
-          return this.level.plants[type.key].map(_.bind(this.createPlant, this, type.key));
-        },
-        this
-      )
-    );
-  };
-
-  Play.prototype.createPlant = function(type, position) {
-    var spriteInfo = splitType(type, 'Plant', 2);
-    var frameIndex = spriteInfo.frameIndex;
-    var spriteKey = spriteInfo.spriteKey;
-    var sprite = this.add.sprite(0, 0, spriteKey);
-    sprite.anchor.setTo(0.5, 0.5);
-    sprite.scale.setTo(2, 2);
-    sprite.baseRotation = position;
-    sprite.plantType = type;
-    var animation = sprite.animations.add('stand', [frameIndex-1, frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
-    sprite.play('stand');
-
-    // Avoid synchronized animations.
-    var animationOffset = Math.floor(Math.random() * animation.delay);
-    animation._timeNextFrame += animationOffset;
-    animation._timeLastFrame += animationOffset;
-
-    sprite.movePlant = movePlant;
-    sprite.movePlant(0);
-    return sprite;
-  };
-
-  function movePlant(rotation)
-  {
-    this.rotation = this.baseRotation - rotation;
-    this.position.setTo(
-      200 - PLANT_DISTANCE * Math.sin(-this.rotation),
-      200 - PLANT_DISTANCE * Math.cos(-this.rotation)
-    );
-  }
-
-  Play.prototype.setPlantCounts = function() {
-    this.plantCounts = {};
-    this.level.plantTypes.forEach(
-      function (plantType) {
-        this.plantCounts[plantType.key] = this.level.plants[plantType.key] ? this.level.plants[plantType.key].length : 0;
-      },
-      this
-    );
-  };
-
   Play.prototype.bindKeys = function() {
     var keyCodeForA = 65;
     var keyCodeForS = 83;
@@ -336,13 +280,7 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.useTool = function() {
-    var plant = this.plants.find(
-      function (plant) {
-        return Math.abs(plant.rotation % (Math.PI*2)) < 0.13;
-      },
-      this
-    );
-
+    var plant = this.plants.findCurrentPlant();
     if (plant) {
       this.attemptToReplacePlant(plant);
     }
@@ -350,27 +288,17 @@ var game = (function(_, Phaser) {
 
   Play.prototype.attemptToReplacePlant = function(plant) {
     var currentTool = this.tools[this.currentToolIndex];
-    if (currentTool.amount <= 0 || !currentTool.convert[plant.plantType]) {
+    if (currentTool.amount <= 0 || !currentTool.convert[plant.type]) {
       return;
     }
     currentTool.amount--;
-    this.plantCounts[plant.plantType]--;
-    plant.kill();
-    plant.plantType = currentTool.convert[plant.plantType];
-    this.plantCounts[plant.plantType]++;
-    plant.animations.getAnimation('stand').stop();
-    plant.animations.getAnimation('stand').destroy();
-    var spriteInfo = splitType(plant.plantType, 'Plant', 2);
-    plant.key = spriteInfo.spriteKey;
-    plant.revive();
-    plant.animations.add('stand', [spriteInfo.frameIndex-1, spriteInfo.frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
-    plant.play('stand');
+    plant.convertTypeTo(currentTool.convert[plant.type]);
   };
 
   Play.prototype.update = function() {
     this.rotation += 0.01;
     this.planet.rotation = -this.rotation;
-    this.plants.forEach(_.method('movePlant', this.rotation));
+    this.plants.move(this.rotation);
   }
 
   ShowLevelResult.prototype.update = function() {}
@@ -435,6 +363,88 @@ var game = (function(_, Phaser) {
       frameIndex: (frames || 1) * type.replace(/^.*-([0-9]+)$/, '$1') - 1
     };
   }
+
+  function Plants(state, level) {
+    this.plants = _.flatten(
+      level.plantTypes.map(
+        function (type) {
+          if (!level.plants[type.key]) {
+            return [];
+          }
+          return level.plants[type.key].map(_.bind(this.createPlant, this, state, type.key));
+        },
+        this
+      )
+    );
+    this.counts = {};
+    level.plantTypes.forEach(
+      function (plantType) {
+        this.counts[plantType.key] = level.plants[plantType.key] ? level.plants[plantType.key].length : 0;
+      },
+      this
+    );
+  }
+
+  Plants.prototype.createPlant = function(state, type, position) {
+    return new Plant(this, state, type, position);
+  };
+
+  Plants.prototype.move = function(rotation) {
+    this.plants.forEach(_.method('move', rotation));
+  }
+
+  Plants.prototype.findCurrentPlant = function() {
+    return this.plants.find(_.method('isCurrent'));
+  };
+
+  function Plant(plants, state, type, position) {
+    this.plants = plants;
+    this.type = type;
+    this.position = position;
+
+    var spriteInfo = splitType(type, 'Plant', 2);
+    var frameIndex = spriteInfo.frameIndex;
+    var spriteKey = spriteInfo.spriteKey;
+    var sprite = state.add.sprite(0, 0, spriteKey);
+    sprite.anchor.setTo(0.5, 0.5);
+    sprite.scale.setTo(2, 2);
+    var animation = sprite.animations.add('stand', [frameIndex-1, frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
+    sprite.play('stand');
+
+    // Avoid synchronized animations.
+    var animationOffset = Math.floor(Math.random() * animation.delay);
+    animation._timeNextFrame += animationOffset;
+    animation._timeLastFrame += animationOffset;
+
+    this.sprite = sprite;
+    this.move(0);
+  }
+
+  Plant.prototype.move = function (rotation) {
+    this.sprite.rotation = this.position - rotation;
+    this.sprite.position.setTo(
+      200 - PLANT_DISTANCE * Math.sin(-this.sprite.rotation),
+      200 - PLANT_DISTANCE * Math.cos(-this.sprite.rotation)
+    );
+  }
+
+  Plant.prototype.convertTypeTo = function (newType) {
+    this.plants.counts[this.type]--;
+    this.plants.counts[newType]++;
+    this.sprite.kill();
+    this.type = newType;
+    this.sprite.animations.getAnimation('stand').stop();
+    this.sprite.animations.getAnimation('stand').destroy();
+    var spriteInfo = splitType(this.type, 'Plant', 2);
+    this.sprite.key = spriteInfo.spriteKey;
+    this.sprite.revive();
+    this.sprite.animations.add('stand', [spriteInfo.frameIndex-1, spriteInfo.frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
+    this.sprite.play('stand');
+  };
+
+  Plant.prototype.isCurrent = function() {
+    return Math.abs(this.sprite.rotation % (Math.PI*2)) < 0.13;
+  };
 
   var PRELOAD_IMAGES = [
     'InvisiblePlant',
