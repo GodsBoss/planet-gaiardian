@@ -206,6 +206,7 @@ var game = (function(_, Phaser) {
     this.addPlanet();
     this.addPlayer();
     this.addPlants();
+    this.setPlantCounts();
     this.addActiveToolMarker();
     this.addTools();
     this.bindKeys();
@@ -282,12 +283,14 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.createPlant = function(type, position) {
-    var frameIndex = 2*type.replace(/^.*-([0-9]+)$/, '$1')-1;
-    var spriteKey = type.replace(/-([0-9]+)$/, 'Plant');
+    var spriteInfo = splitType(type, 'Plant', 2);
+    var frameIndex = spriteInfo.frameIndex;
+    var spriteKey = spriteInfo.spriteKey;
     var sprite = this.add.sprite(0, 0, spriteKey);
     sprite.anchor.setTo(0.5, 0.5);
     sprite.scale.setTo(2, 2);
     sprite.baseRotation = position;
+    sprite.plantType = type;
     var animation = sprite.animations.add('stand', [frameIndex-1, frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
     sprite.play('stand');
 
@@ -310,6 +313,16 @@ var game = (function(_, Phaser) {
     );
   }
 
+  Play.prototype.setPlantCounts = function() {
+    this.plantCounts = {};
+    this.level.plantTypes.forEach(
+      function (plantType) {
+        this.plantCounts[plantType.key] = this.level.plants[plantType.key] ? this.level.plants[plantType.key].length : 0;
+      },
+      this
+    );
+  };
+
   Play.prototype.bindKeys = function() {
     var keyCodeForA = 65;
     var keyCodeForS = 83;
@@ -323,6 +336,35 @@ var game = (function(_, Phaser) {
   };
 
   Play.prototype.useTool = function() {
+    var plant = this.plants.find(
+      function (plant) {
+        return Math.abs(plant.rotation % (Math.PI*2)) < 0.13;
+      },
+      this
+    );
+
+    if (plant) {
+      this.attemptToReplacePlant(plant);
+    }
+  };
+
+  Play.prototype.attemptToReplacePlant = function(plant) {
+    var currentTool = this.tools[this.currentToolIndex];
+    if (currentTool.amount <= 0 || !currentTool.convert[plant.plantType]) {
+      return;
+    }
+    currentTool.amount--;
+    this.plantCounts[plant.plantType]--;
+    plant.kill();
+    plant.plantType = currentTool.convert[plant.plantType];
+    this.plantCounts[plant.plantType]++;
+    plant.animations.getAnimation('stand').stop();
+    plant.animations.getAnimation('stand').destroy();
+    var spriteInfo = splitType(plant.plantType, 'Plant', 2);
+    plant.key = spriteInfo.spriteKey;
+    plant.revive();
+    plant.animations.add('stand', [spriteInfo.frameIndex-1, spriteInfo.frameIndex], ANIMATION_FPS, LOOP_ANIMATION);
+    plant.play('stand');
   };
 
   Play.prototype.update = function() {
@@ -374,6 +416,24 @@ var game = (function(_, Phaser) {
 
     // Must be array
     this.unlocks = Array.isArray(this.unlocks) ? this.unlocks : [];
+  }
+
+  /*
+  * Takes a type of the form 'Foobar-2', a suffix and the number of frames for
+  * that type. Returns an object containing a sprite key and the index of the
+  * first frame.
+  * Example:
+  * splitType('Foobar-3', 'Baz', 6) =>
+  * {
+  *   spriteKey: 'FoobarBaz',
+  *   frameIndex: 17
+  * }
+  */
+  function splitType(type, keySuffix, frames) {
+    return {
+      spriteKey: type.replace(/-([0-9]+)$/, keySuffix),
+      frameIndex: (frames || 1) * type.replace(/^.*-([0-9]+)$/, '$1') - 1
+    };
   }
 
   var PRELOAD_IMAGES = [
