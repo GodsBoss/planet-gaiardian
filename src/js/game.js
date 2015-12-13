@@ -705,6 +705,7 @@ var game = (function(_, Phaser) {
   var PRELOAD_IMAGES = [
     'DesertPlanet',
     'PlayBackgroundBlue',
+    'InvertedYellowBackground',
     'SelectLevelBackground',
     'Planet1'
   ];
