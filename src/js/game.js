@@ -704,7 +704,6 @@ var game = (function(_, Phaser) {
 
   var PRELOAD_IMAGES = [
     'DesertPlanet',
-    'InvisiblePlant',
     'PlayBackgroundBlue',
     'SelectLevelBackground',
     'Planet1'
