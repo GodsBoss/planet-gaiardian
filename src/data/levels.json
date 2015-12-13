@@ -583,6 +583,15 @@
           "amount": 10
         },
         {
+          "key": "Green-1",
+          "convert": {
+            "Green-5": "Green-8",
+            "Green-6": "Green-9",
+            "Green-7": "Green-10"
+          },
+          "amount": 3
+        },
+        {
           "key": "Green-2",
           "convert": {
             "Green-3": "Green-4"
@@ -612,6 +621,24 @@
           "key": "Green-4"
         },
         {
+          "key": "Green-5"
+        },
+        {
+          "key": "Green-6"
+        },
+        {
+          "key": "Green-7"
+        },
+        {
+          "key": "Green-8"
+        },
+        {
+          "key": "Green-9"
+        },
+        {
+          "key": "Green-10"
+        },
+        {
           "key": "Green-11"
         }
       ],
@@ -627,11 +654,20 @@
         ],
         "Green-3": [
           3,
-          3.6,
           3.9,
-          4.25,
           4.5,
           4.8,
+          5.35,
+          5.8,
+          6.15
+        ],
+        "Green-5": [
+          3.6
+        ],
+        "Green-6": [
+          4.25
+        ],
+        "Green-7": [
           5.1
         ]
       },
@@ -639,6 +675,9 @@
         "normal": {
           "Green-2": 3,
           "Green-4": 6,
+          "Green-8": 1,
+          "Green-9": 1,
+          "Green-10": 1,
           "Green-11": 3
         }
       }
