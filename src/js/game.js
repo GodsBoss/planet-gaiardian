@@ -70,6 +70,9 @@ var game = (function(_, Phaser) {
     game.state.add('SelectLevel', new SelectLevel());
     game.state.add('Play', new Play());
     game.state.add('ShowLevelResult', new ShowLevelResult());
+    game.playRandomSound = function(container) {
+      this.sound.play(SOUNDS[Math.floor(Math.random() * SOUNDS.length)]);
+    };
   };
 
   function State() {}
@@ -156,6 +159,7 @@ var game = (function(_, Phaser) {
     PRELOAD_IMAGES.forEach(function(image) {this.loadImage(image);}, this);
     PLANT_SPRITESHEETS.forEach(function(sheet) {this.loadPlantSpritesheet(sheet);}, this);
     TOOL_SPRITESHEETS.forEach(function(sheet) {this.loadToolSpritesheet(sheet);}, this);
+    SOUNDS.forEach(function(key) {this.load.audio(key, 'sfx/' + key + '.wav')}, this);
     this.loadSpritesheet('Player', 15, 15);
     this.loadSpritesheet('ActiveToolMarker', 24, 24);
     this.loadSpritesheet('ActivePlanetMarker', 30, 30);
@@ -222,6 +226,7 @@ var game = (function(_, Phaser) {
     this.currentLevelKey = levelKey;
     var textBounds = this.levelInfoText.getBounds();
     this.levelNameText.position.setTo(textBounds.x, textBounds.y);
+    this.game.playRandomSound();
   };
 
   SelectLevel.prototype.highlightStartLevelText = function() {
@@ -293,6 +298,7 @@ var game = (function(_, Phaser) {
 
   Play.prototype.switchTool = function() {
     this.tools.switch();
+    this.game.playRandomSound();
   };
 
   Play.prototype.useTool = function() {
@@ -301,6 +307,7 @@ var game = (function(_, Phaser) {
     if (this.level.isWon(this.plants)) {
       this.state.start('ShowLevelResult', CLEAR_WORLD, !CLEAR_CACHE, this.level, true);
     }
+    this.game.playRandomSound();
   };
 
   Play.prototype.update = function() {
@@ -730,6 +737,8 @@ var game = (function(_, Phaser) {
     'TutorialTool',
     'YellowFeverTool'
   ];
+
+  var SOUNDS = ['1', '2', '3', '4', '5'];
 
   return myGame;
 

@@ -1,6 +1,7 @@
 GFX=$(shell cd src/gfx; ls *.xcf | sed -e "{ s/\(.*\).xcf/dist\/gfx\/\\1.png/}")
+SFX=$(shell cd src/sfx; ls *.wav | sed -e "{s/\.*/dist\/sfx\/\\0/}")
 
-dist/index.html: dist src/index.html dist/init.js dist/game.js $(GFX) dist/levels.json
+dist/index.html: dist src/index.html dist/init.js dist/game.js $(GFX) dist/levels.json $(SFX)
 	cp src/index.html dist
 
 dist:
@@ -28,3 +29,9 @@ dist/gfx:
 
 dist/gfx/%.png: src/scripts/xcf2png.sh dist/gfx src/gfx/%.xcf
 	src/scripts/xcf2png.sh $(basename $(@F))
+
+dist/sfx:
+	mkdir -p dist/sfx
+
+dist/sfx/%.wav: dist/sfx src/sfx/%.wav
+	cp src/sfx/$(@F) dist/sfx
