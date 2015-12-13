@@ -24,11 +24,11 @@ var game = (function(_, Phaser) {
   var LEVEL_START_STYLE_HOVER = _.merge({}, LEVEL_START_STYLE, { fill: '#ffff00'});
   var TOOL_STYLE = {
     fill: '#aaaaaa',
-    font: 'normal 10px monospace'
+    font: 'normal 20px monospace'
   };
   var CURRENT_TOOL_STYLE = {
     fill: '#ffffff',
-    font: 'bold 10px monospace'
+    font: 'bold 20px monospace'
   };
   var VICTORY_STYLE = {
     fill: '#ccffcc',
@@ -539,14 +539,13 @@ var game = (function(_, Phaser) {
     this.sprite.scale.setTo(2, 2);
     this.text = state.add.text(0, 0, '', TOOL_STYLE);
     this.text.anchor.setTo(0, 0.5);
-    this.text.scale.setTo(2, 2);
     this.showAmount();
   }
 
   Tool.prototype.setVisibleIndex = function(index) {
     var y = index * 50 + 30;
     this.sprite.position.setTo(440, y);
-    this.text.position.setTo(480, y + 7); // For some reason, an offset is needed to look good.
+    this.text.position.setTo(480, y + 4); // For some reason, an offset is needed to look good.
   };
 
   Tool.prototype.use = function(plant) {
