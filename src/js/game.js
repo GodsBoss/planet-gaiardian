@@ -160,6 +160,7 @@ var game = (function(_, Phaser) {
     this.loadSpritesheet('Player', 15, 15);
     this.loadSpritesheet('ActiveToolMarker', 24, 24);
     this.loadSpritesheet('ActivePlanetMarker', 30, 30);
+    this.loadSpritesheet('MiniPlanets', 15, 15);
     this.load.json('levels', 'levels.json?' + new Date());
   };
 
@@ -203,13 +204,9 @@ var game = (function(_, Phaser) {
   };
 
   SelectLevel.prototype.createLevelSprite = function(level) {
-    var spriteFrame = 0;
-    if (level.finished) {
-      spriteFrame = 2;
-    } else if (level.unlocksSomeOtherLevel) {
-      spriteFrame = 1;
-    }
-    var sprite = this.add.sprite(level.x, level.y, 'LevelSelectLevel', spriteFrame);
+    var sprite = this.add.sprite(level.x, level.y, 'MiniPlanets', level.miniPlanet);
+    sprite.rotation = Math.PI * 2 * Math.random();
+    sprite.scale.setTo(2, 2);
     sprite.anchor.setTo(0.5, 0.5);
     sprite.inputEnabled = true;
     sprite.events.onInputUp.add(this.showLevelInfo, this, 0, level.key, level.name, level.shortDescription);
@@ -238,6 +235,14 @@ var game = (function(_, Phaser) {
 
   SelectLevel.prototype.startLevel = function() {
     this.state.start('Play', CLEAR_WORLD, !CLEAR_CACHE, this.game.levels.byKey(this.currentLevelKey));
+  };
+
+  SelectLevel.prototype.update = function() {
+    this.levelSprites.forEach(
+      function(sprite) {
+        sprite.rotation += 0.01;
+      }
+    );
   };
 
   Play.prototype.init = function(level) {
