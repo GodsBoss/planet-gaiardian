@@ -206,7 +206,7 @@ var game = (function(_, Phaser) {
     this.addPlanet();
     this.addPlayer();
     this.plants = new Plants(this, this.level);
-    this.addTools();
+    this.tools = new Tools(this, this.level);
     this.bindKeys();
   };
 
@@ -222,10 +222,6 @@ var game = (function(_, Phaser) {
     this.player.scale.setTo(2, 2);
     this.player.animations.add('run', ALL_FRAMES, ANIMATION_FPS, LOOP_ANIMATION);
     this.player.play('run');
-  };
-
-  Play.prototype.addTools = function() {
-    this.tools = new Tools(this, this.level);
   };
 
   Play.prototype.bindKeys = function() {
