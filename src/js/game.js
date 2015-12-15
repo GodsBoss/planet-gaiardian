@@ -338,7 +338,9 @@ var game = (function(_, Phaser) {
   }
 
   ShowLevelResult.prototype.init = function(level, victorious) {
-    this.game.levels.won(level);
+    if (victorious) {
+      this.game.levels.won(level);
+    }
     this.level = level;
     this.victorious = victorious;
   };
