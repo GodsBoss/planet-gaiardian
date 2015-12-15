@@ -23,6 +23,8 @@ To build the game, you need:
 
 ## TODO
 
+### Technical stuff
+
 These are after-Ludum-Dare-cleanup items.
 
 - Handle scaling in a sane way.
@@ -30,3 +32,14 @@ These are after-Ludum-Dare-cleanup items.
 - Split game.js into multiple files.
 - JS build process / minification.
 - Fix PNG creation script so it does not show exceptions anymore.
+- Preload level data earlier and retrieve sprite keys and image URLs from there,
+  remove most of this information from the code.
+- Split level data into chunks and merge them on build.
+- Automatic tests. At least some of the functions and constructors should be
+  testable and therefore tested.
+
+### Features / Enhancements
+
+- Save progress so it survives a reload.
+- Bind sounds so the same item plays always the same sound. A non-working usage
+  should play its own, distinct sound.
