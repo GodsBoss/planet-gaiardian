@@ -28,7 +28,6 @@ To build the game, you need:
 These are after-Ludum-Dare-cleanup items.
 
 - Handle scaling in a sane way.
-- Make rotation speed configurable per level.
 - Split game.js into multiple files.
 - JS build process / minification.
 - Fix PNG creation script so it does not show exceptions anymore.
@@ -43,3 +42,4 @@ These are after-Ludum-Dare-cleanup items.
 - Save progress so it survives a reload.
 - Bind sounds so the same item plays always the same sound. A non-working usage
   should play its own, distinct sound.
+- Make rotation speed configurable per level.
