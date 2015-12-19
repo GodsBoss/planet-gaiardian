@@ -1,0 +1,70 @@
+{
+  "key": "green-3",
+  "name": "Flower Power 2",
+  "shortDescription": "This could have been your ad!",
+  "planet": "GreenPlanet",
+  "miniPlanet": 3,
+  "background": "PlayBackgroundBlue",
+  "unlocks": ["green-4"],
+  "x": 500,
+  "y": 100,
+  "time": 30,
+  "tools": [
+    {
+      "key": "Green-1",
+      "convert": {
+        "Green-5": "Green-8",
+        "Green-6": "Green-9",
+        "Green-7": "Green-10"
+      },
+      "amount": 9
+    }
+  ],
+  "firstTool": "Green-1",
+  "plantTypes": [
+    {
+      "key": "Green-5"
+    },
+    {
+      "key": "Green-6"
+    },
+    {
+      "key": "Green-7"
+    },
+    {
+      "key": "Green-8"
+    },
+    {
+      "key": "Green-9"
+    },
+    {
+      "key": "Green-10"
+    }
+  ],
+  "plants": {
+    "Green-5": [
+      0,
+      4.05,
+      4.35,
+      5.1
+    ],
+    "Green-6": [
+      1.8,
+      3.4,
+      3.7,
+      5.5
+    ],
+    "Green-7": [
+      2.8,
+      3.15,
+      4.8
+    ]
+  },
+  "victory": {
+    "normal": {
+      "Green-8": 3,
+      "Green-9": 3,
+      "Green-10": 3
+    }
+  }
+}

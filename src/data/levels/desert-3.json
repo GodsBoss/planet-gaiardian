@@ -1,0 +1,85 @@
+{
+  "key": "desert-3",
+  "name": "Perfect Wasteland",
+  "shortDescription": "You need 5 of (nearly) everything.",
+  "planet": "DesertPlanet",
+  "miniPlanet": 1,
+  "background": "InvertedYellowBackground",
+  "x": 250,
+  "y": 100,
+  "time": 60,
+  "tools": [
+    {
+      "key": "CactusWorld-1",
+      "convert": {
+        "CactusWorld-1": "CactusWorld-2"
+      },
+      "amount": 10
+    },
+    {
+      "key": "CactusWorld-2",
+      "convert": {
+        "CactusWorld-1": "CactusWorld-3"
+      },
+      "amount": 10
+    },
+    {
+      "key": "CactusWorld-3",
+      "convert": {
+        "CactusWorld-4": "CactusWorld-5"
+      }
+    }
+  ],
+  "firstTool": "CactusWorld-1",
+  "plantTypes": [
+    {
+      "key": "CactusWorld-1"
+    },
+    {
+      "key": "CactusWorld-2"
+    },
+    {
+      "key": "CactusWorld-3"
+    },
+    {
+      "key": "CactusWorld-4"
+    },
+    {
+      "key": "CactusWorld-5"
+    }
+  ],
+  "plants": {
+    "CactusWorld-1": [
+      0.2,
+      0.55,
+      0.85,
+      1.5,
+      1.75,
+      2.0,
+      2.3,
+      2.55,
+      4.6,
+      4.8
+    ],
+    "CactusWorld-4": [
+      1.2,
+      2.9,
+      3.2,
+      3.7,
+      4.05,
+      4.3,
+      5.1,
+      5.45,
+      5.8,
+      6.1
+    ]
+  },
+  "victory": {
+    "normal" : {
+      "CactusWorld-2": 5,
+      "CactusWorld-3": 5,
+      "CactusWorld-4": 5,
+      "CactusWorld-5": 5
+    }
+  }
+}

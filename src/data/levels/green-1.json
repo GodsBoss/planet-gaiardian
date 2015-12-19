@@ -1,0 +1,60 @@
+{
+  "key": "green-1",
+  "name": "Box Breaker",
+  "shortDescription": "Sometimes things need to\nbe broken to be able\nto create a better world.",
+  "planet": "GreenPlanet",
+  "miniPlanet": 3,
+  "background": "PlayBackgroundBlue",
+  "unlocks": ["green-2"],
+  "x": 400,
+  "y": 100,
+  "time": 30,
+  "tools": [
+    {
+      "key": "CactusWorld-3",
+      "convert": {
+        "Green-1": "Green-2",
+        "Green-11": "Green-2"
+      }
+    },
+    {
+      "key": "Green-3",
+      "convert": {
+        "Green-1": "Green-11"
+      },
+      "amount": 4
+    }
+  ],
+  "firstTool" : "CactusWorld-3",
+  "plantTypes": [
+    {
+      "key": "Green-1"
+    },
+    {
+      "key": "Green-2"
+    },
+    {
+      "key": "Green-11"
+    }
+  ],
+  "plants": {
+    "Green-1": [
+      0.4,
+      0.7,
+      1.05,
+      1.35,
+      1.7,
+      3.8,
+      5.1,
+      5.4,
+      5.8,
+      6.1
+    ]
+  },
+  "victory": {
+    "normal": {
+      "Green-2": 4,
+      "Green-11": 4
+    }
+  }
+}

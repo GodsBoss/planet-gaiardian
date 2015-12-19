@@ -1,0 +1,74 @@
+{
+  "key": "mushroom-1",
+  "name": "Mushroom Marsh",
+  "shortDescription": "A strange mushroom world...",
+  "planet": "MushroomPlanet",
+  "miniPlanet": 2,
+  "background": "PlayBackgroundBlue",
+  "unlocks": ["mushroom-2"],
+  "x": 300,
+  "y": 100,
+  "time": 45,
+  "tools": [
+    {
+      "key": "Mushroom-1",
+      "convert": {
+        "Mushroom-2": "Mushroom-1"
+      },
+      "amount": 666
+    },
+    {
+      "key": "Mushroom-2",
+      "convert": {
+        "Mushroom-1": "Mushroom-3"
+      },
+      "amount": 3
+    },
+    {
+      "key": "Mushroom-3",
+      "convert": {
+        "Mushroom-3": "Mushroom-1"
+      }
+    },
+    {
+      "key": "Mushroom-4",
+      "convert": {
+        "Mushroom-1": "Mushroom-2"
+      }
+    }
+  ],
+  "firstTool": "Mushroom-1",
+  "plantTypes": [
+    {
+      "key": "Mushroom-1"
+    },
+    {
+      "key": "Mushroom-2"
+    },
+    {
+      "key": "Mushroom-3"
+    }
+  ],
+  "plants": {
+    "Mushroom-1": [
+      0.4,
+      2.5
+    ],
+    "Mushroom-2": [
+      1.8,
+      2.1,
+      3,
+      5.1,
+      6.2
+    ],
+    "Mushroom-3": [
+      4
+    ]
+  },
+  "victory": {
+    "normal": {
+      "Mushroom-2": 4,
+      "Mushroom-3": 4
+    }
+  }
+}

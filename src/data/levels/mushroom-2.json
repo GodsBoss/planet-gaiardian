@@ -1,0 +1,65 @@
+{
+  "key": "mushroom-2",
+  "name": "Flower Power",
+  "shortDescription": "If life gives you cacti,\ncrush them and make flowers.",
+  "planet": "MushroomPlanet",
+  "miniPlanet": 2,
+  "background": "PlayBackgroundBlue",
+  "x": 350,
+  "y": 100,
+  "time": 30,
+  "tools": [
+    {
+      "key": "CactusWorld-3",
+      "convert": {
+        "CactusWorld-3": "CactusWorld-1"
+      },
+      "amount": 8
+    },
+    {
+      "key": "Tutorial-1",
+      "convert": {
+        "CactusWorld-1": "Tutorial-2"
+      },
+      "amount": 3
+    },
+    {
+      "key": "Tutorial-2",
+      "convert": {
+        "CactusWorld-1": "Tutorial-3"
+      },
+      "amount": 3
+    }
+  ],
+  "firstTool": "CactusWorld-3",
+  "plantTypes": [
+    {
+      "key": "CactusWorld-1"
+    },
+    {
+      "key": "CactusWorld-3"
+    },
+    {
+      "key": "Tutorial-2"
+    },
+    {
+      "key": "Tutorial-3"
+    }
+  ],
+  "plants": {
+    "CactusWorld-3": [
+      2.0,
+      2.4,
+      4.1,
+      4.5,
+      5.8,
+      6.1
+    ]
+  },
+  "victory": {
+    "normal": {
+      "Tutorial-2": 3,
+      "Tutorial-3": 3
+    }
+  }
+}

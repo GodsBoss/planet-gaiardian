@@ -1,0 +1,63 @@
+{
+  "key": "1",
+  "name": "Yellow Fever",
+  "shortDescription": "Help the small red flowers to blossom into giant\nyellow ones! Don't waste yellow!",
+  "planet": "Planet1",
+  "miniPlanet": 0,
+  "background": "PlayBackgroundBlue",
+  "unlocked": true,
+  "unlocks": ["desert-1", "mushroom-1", "green-1"],
+  "x": 100,
+  "y": 100,
+  "time": 60,
+  "tools": [
+    {
+      "key": "YellowFever-1",
+      "convert": {
+        "YellowFever-1": "YellowFever-2"
+      },
+      "amount": 10
+    },
+    {
+      "key": "YellowFever-2",
+      "convert": {
+        "YellowFever-1": "YellowFever-2",
+        "YellowFever-2": "YellowFever-3"
+      },
+      "amount": 10
+    }
+  ],
+  "firstTool": "YellowFever-1",
+  "plantTypes": [
+    {
+      "key": "YellowFever-1"
+    },
+    {
+      "key": "YellowFever-2"
+    },
+    {
+      "key": "YellowFever-3"
+    }
+  ],
+  "plants": {
+    "YellowFever-1": [
+      0.5,
+      1.0,
+      1.55,
+      2.0,
+      2.5,
+      3.1,
+      3.5,
+      4.0,
+      4.4,
+      5.0,
+      5.5,
+      5.9
+    ]
+  },
+  "victory": {
+    "normal": {
+      "YellowFever-3": 10
+    }
+  }
+}

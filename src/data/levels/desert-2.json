@@ -1,0 +1,69 @@
+{
+  "key": "desert-2",
+  "name": "Bones",
+  "shortDescription": "Sticks and stones\ncan hurt my bones.",
+  "planet": "DesertPlanet",
+  "miniPlanet": 1,
+  "background": "InvertedYellowBackground",
+  "unlocks": ["desert-3"],
+  "x": 200,
+  "y": 100,
+  "time": 45,
+  "tools": [
+    {
+      "key": "CactusWorld-1",
+      "convert": {
+        "CactusWorld-1": "CactusWorld-2"
+      },
+      "amount": 99
+    },
+    {
+      "key": "CactusWorld-3",
+      "convert": {
+        "CactusWorld-3": "CactusWorld-1",
+        "CactusWorld-4": "CactusWorld-5"
+      },
+      "amount": 99
+    }
+  ],
+  "firstTool": "CactusWorld-3",
+  "plantTypes": [
+    {
+      "key": "CactusWorld-1"
+    },
+    {
+      "key": "CactusWorld-2"
+    },
+    {
+      "key": "CactusWorld-3"
+    },
+    {
+      "key": "CactusWorld-4"
+    },
+    {
+      "key": "CactusWorld-5"
+    }
+  ],
+  "plants": {
+    "CactusWorld-3": [
+      1,
+      1.5,
+      2.6,
+      4.9,
+      5.4,
+      5.8
+    ],
+    "CactusWorld-4": [
+      0.5,
+      2,
+      3
+    ]
+  },
+  "victory": {
+    "normal": {
+      "CactusWorld-2": 3,
+      "CactusWorld-3": 3,
+      "CactusWorld-5": 3
+    }
+  }
+}

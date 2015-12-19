@@ -1,0 +1,120 @@
+{
+  "key": "green-4",
+  "name": "Options",
+  "shortDescription": "Use your tools wisely!",
+  "planet": "GreenPlanet",
+  "miniPlanet": 3,
+  "background": "PlayBackgroundBlue",
+  "x": 550,
+  "y": 100,
+  "time": 45,
+  "tools": [
+    {
+      "key": "CactusWorld-3",
+      "convert": {
+        "Green-1": "Green-2",
+        "Green-4": "Green-3",
+        "Green-11": "Green-2"
+      },
+      "amount": 10
+    },
+    {
+      "key": "Green-1",
+      "convert": {
+        "Green-5": "Green-8",
+        "Green-6": "Green-9",
+        "Green-7": "Green-10"
+      },
+      "amount": 3
+    },
+    {
+      "key": "Green-2",
+      "convert": {
+        "Green-3": "Green-4"
+      },
+      "amount": 6
+    },
+    {
+      "key": "Green-3",
+      "convert": {
+        "Green-1": "Green-11"
+      },
+      "amount": 3
+    }
+  ],
+  "firstTool": "CactusWorld-3",
+  "plantTypes": [
+    {
+      "key": "Green-1"
+    },
+    {
+      "key": "Green-2"
+    },
+    {
+      "key": "Green-3"
+    },
+    {
+      "key": "Green-4"
+    },
+    {
+      "key": "Green-5"
+    },
+    {
+      "key": "Green-6"
+    },
+    {
+      "key": "Green-7"
+    },
+    {
+      "key": "Green-8"
+    },
+    {
+      "key": "Green-9"
+    },
+    {
+      "key": "Green-10"
+    },
+    {
+      "key": "Green-11"
+    }
+  ],
+  "plants": {
+    "Green-1": [
+      0.4,
+      0.75,
+      1.05,
+      1.35,
+      1.7,
+      2.7,
+      3.3
+    ],
+    "Green-3": [
+      3,
+      3.9,
+      4.5,
+      4.8,
+      5.35,
+      5.8,
+      6.15
+    ],
+    "Green-5": [
+      3.6
+    ],
+    "Green-6": [
+      4.25
+    ],
+    "Green-7": [
+      5.1
+    ]
+  },
+  "victory": {
+    "normal": {
+      "Green-2": 3,
+      "Green-4": 6,
+      "Green-8": 1,
+      "Green-9": 1,
+      "Green-10": 1,
+      "Green-11": 3
+    }
+  }
+}

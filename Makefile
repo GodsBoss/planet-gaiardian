@@ -13,9 +13,8 @@ dist/init.js: src/js/init.js
 dist/game.js: src/js/game.js
 	cp src/js/game.js dist
 
-dist/levels.json: dist src/data/levels.json
-	node src/scripts/checkJson.js src/data/levels.json
-	cp src/data/levels.json dist
+dist/levels.json: dist src/scripts/mergeData.js src/data/levels/*.json
+	node src/scripts/mergeData.js src/data/levels dist/levels.json
 
 node_modules: package.json
 	npm install

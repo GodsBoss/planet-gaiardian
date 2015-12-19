@@ -1,0 +1,71 @@
+{
+  "key": "tutorial",
+  "name": "Try it out!",
+  "shortDescription": "No time limit.\nYou cannot lose.",
+  "planet": "Planet1",
+  "miniPlanet": 0,
+  "background": "PlayBackgroundBlue",
+  "unlocked": true,
+  "x": 50,
+  "y": 100,
+  "finished": true,
+  "tools": [
+    {
+      "key": "Tutorial-1",
+      "convert": {
+        "Tutorial-1": "Tutorial-2"
+      },
+      "amount": 5
+    },
+    {
+      "key": "Tutorial-2",
+      "convert": {
+        "Tutorial-1": "Tutorial-3"
+      },
+      "amount": 5
+    }
+  ],
+  "firstTool": "Tutorial-1",
+  "plantTypes": [
+    {
+      "key": "Tutorial-1"
+    },
+    {
+      "key": "Tutorial-2"
+    },
+    {
+      "key": "Tutorial-3"
+    }
+  ],
+  "plants": {
+    "Tutorial-1": [
+      0.0,
+      0.4,
+      0.9,
+      1.2,
+      1.6,
+      2.0,
+      2.5,
+      2.8,
+      3.1,
+      3.5,
+      4.0,
+      4.4,
+      4.8,
+      5.2,
+      5.6
+    ],
+    "Tutorial-2": [
+      5.9
+    ],
+    "Tutorial-3": [
+      0.65
+    ]
+  },
+  "victory": {
+    "normal": {
+      "Tutorial-2": 5,
+      "Tutorial-3": 5
+    }
+  }
+}

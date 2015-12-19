@@ -1,0 +1,47 @@
+{
+  "key": "green-2",
+  "name": "Lush Green",
+  "shortDescription": "Grow some simple bushes.",
+  "planet": "GreenPlanet",
+  "miniPlanet": 3,
+  "background": "PlayBackgroundBlue",
+  "unlocks": ["green-3"],
+  "x": 450,
+  "y": 100,
+  "time": 30,
+  "tools": [
+    {
+      "key": "Green-2",
+      "convert": {
+        "Green-3": "Green-4"
+      },
+      "amount": 8
+    }
+  ],
+  "firstTool": "Green-2",
+  "plantTypes": [
+    {
+      "key": "Green-3"
+    },
+    {
+      "key": "Green-4"
+    }
+  ],
+  "plants": {
+    "Green-3": [
+      1.8,
+      2.6,
+      3.1,
+      3.6,
+      4.3,
+      4.8,
+      5.3,
+      5.9
+    ]
+  },
+  "victory": {
+    "normal": {
+      "Green-4": 8
+    }
+  }
+}
