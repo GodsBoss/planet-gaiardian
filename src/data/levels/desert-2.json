@@ -6,8 +6,8 @@
   "miniPlanet": 1,
   "background": "InvertedYellowBackground",
   "unlocks": ["desert-3"],
-  "x": 200,
-  "y": 100,
+  "x": 100,
+  "y": 50,
   "time": 45,
   "tools": [
     {

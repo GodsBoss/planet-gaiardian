@@ -27,7 +27,6 @@ To build the game, you need:
 
 These are after-Ludum-Dare-cleanup items.
 
-- Handle scaling in a sane way.
 - Split game.js into multiple files.
 - JS build process / minification.
 - Fix PNG creation script so it does not show exceptions anymore.

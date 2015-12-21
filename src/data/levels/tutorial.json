@@ -6,8 +6,8 @@
   "miniPlanet": 0,
   "background": "PlayBackgroundBlue",
   "unlocked": true,
-  "x": 50,
-  "y": 100,
+  "x": 25,
+  "y": 50,
   "finished": true,
   "tools": [
     {

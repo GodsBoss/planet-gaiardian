@@ -5,8 +5,8 @@
   "planet": "GreenPlanet",
   "miniPlanet": 3,
   "background": "PlayBackgroundBlue",
-  "x": 550,
-  "y": 100,
+  "x": 275,
+  "y": 50,
   "time": 45,
   "tools": [
     {

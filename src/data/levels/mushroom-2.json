@@ -5,8 +5,8 @@
   "planet": "MushroomPlanet",
   "miniPlanet": 2,
   "background": "PlayBackgroundBlue",
-  "x": 350,
-  "y": 100,
+  "x": 175,
+  "y": 50,
   "time": 30,
   "tools": [
     {

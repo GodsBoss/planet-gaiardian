@@ -6,8 +6,8 @@
   "miniPlanet": 3,
   "background": "PlayBackgroundBlue",
   "unlocks": ["green-2"],
-  "x": 400,
-  "y": 100,
+  "x": 100,
+  "y": 25,
   "time": 30,
   "tools": [
     {

@@ -5,8 +5,8 @@
   "planet": "DesertPlanet",
   "miniPlanet": 1,
   "background": "InvertedYellowBackground",
-  "x": 250,
-  "y": 100,
+  "x": 125,
+  "y": 50,
   "time": 60,
   "tools": [
     {

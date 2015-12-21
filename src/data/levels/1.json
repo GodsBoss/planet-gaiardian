@@ -7,8 +7,8 @@
   "background": "PlayBackgroundBlue",
   "unlocked": true,
   "unlocks": ["desert-1", "mushroom-1", "green-1"],
-  "x": 100,
-  "y": 100,
+  "x": 50,
+  "y": 50,
   "time": 60,
   "tools": [
     {
