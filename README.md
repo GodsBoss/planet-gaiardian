@@ -27,6 +27,7 @@ To build the game, you need:
 
 These are after-Ludum-Dare-cleanup items.
 
+- Make URLs to Phaser and Lodash configurable.
 - Split game.js into multiple files.
 - JS build process / minification.
 - Fix PNG creation script so it does not show exceptions anymore.
