@@ -10,8 +10,8 @@ dist:
 dist/init.js: src/js/init.js
 	cp src/js/init.js dist
 
-dist/game.js: src/js/game.js
-	cp src/js/game.js dist
+dist/game.js: node_modules src/js/*.js
+	./node_modules/.bin/gulp build:js
 
 dist/levels.json: dist src/scripts/mergeData.js src/data/levels/*.json
 	node src/scripts/mergeData.js src/data/levels dist/levels.json
