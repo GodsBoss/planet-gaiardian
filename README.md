@@ -29,7 +29,7 @@ These are after-Ludum-Dare-cleanup items.
 
 - Make URLs to Phaser and Lodash configurable.
 - Split game.js into multiple files.
-- JS build process / minification.
+- JS minification.
 - Fix PNG creation script so it does not show exceptions anymore.
 - Preload level data earlier and retrieve sprite keys and image URLs from there,
   remove most of this information from the code.

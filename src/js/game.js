@@ -1,5 +1,3 @@
-var game = (function(_, Phaser) {
-
   var TRANSPARENT = true;
   var ANTIALIASING = true;
   var AUTOSTART = true;
@@ -62,9 +60,8 @@ var game = (function(_, Phaser) {
       child.prototype = new F();
     }
   })();
-  var myGame = {};
 
-  myGame.create = function(domId) {
+  export function create(domId) {
     var game = new Phaser.Game(320, 200, Phaser.AUTO, 'game', null, !TRANSPARENT, !ANTIALIASING);
     game.state.add('Boot', new Boot(), AUTOSTART)
     game.state.add('Preload', new Preload());
@@ -756,7 +753,3 @@ var game = (function(_, Phaser) {
   ];
 
   var SOUNDS = ['1', '2', '3', '4', '5'];
-
-  return myGame;
-
-})(_, Phaser);

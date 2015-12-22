@@ -5,12 +5,17 @@
     <title>Planet Gaiardian</title>
     <script src="http://cdn.godsboss.org/lodash.3.10.1.min.js" type="text/javascript"></script>
     <script src="http://cdn.godsboss.org/phaser.2.4.4.min.js" type="text/javascript"></script>
-    <script src="game.js" type="text/javascript"></script>
+    <script src="http://cdn.godsboss.org/systemjs.0.19.9/system.js" type="text/javascript"></script>
     <script type="text/javascript">
+        System.config({});
         window.addEventListener('load', init, false);
 
         function init(e) {
-          game.create('game');
+          System.import('./game.js?' + Math.random()).then(
+            function(game){
+              game.create('game');
+            }
+          );
         }
     </script>
     <style type="text/css">
