@@ -19,6 +19,13 @@ gulp.task(
 );
 
 var JS_FILES = [
+  'helpers',
+  'State',
+  'Boot',
+  'Play',
+  'Preload',
+  'SelectLevel',
+  'ShowLevelResult',
   'Level',
   'Levels',
   'Plant',
