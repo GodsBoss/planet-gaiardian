@@ -68,14 +68,6 @@
     this.load.spritesheet(key, 'gfx/' + key + '.png', frameWidth, frameHeight, frameMax, margin, spacing);
   };
 
-  State.prototype.loadPlantSpritesheet = function(key) {
-    this.load.spritesheet(key, 'gfx/' + key + '.png', 15, 15);
-  };
-
-  State.prototype.loadToolSpritesheet = function(key) {
-    this.load.spritesheet(key, 'gfx/' + key + '.png', 20, 20);
-  }
-
   State.prototype.createBackground = function(spriteKey) {
     var background = this.add.sprite(this.world.centerX, this.world.centerY, spriteKey || (this.key + 'Background'));
     background.anchor.setTo(0.5, 0.5);
@@ -157,6 +149,14 @@
     this.loadSpritesheet('MiniPlanets', 15, 15);
     this.loadSpritesheet('Sound', 20, 20);
     this.load.json('levels', 'levels.json?' + new Date());
+  };
+
+  Preload.prototype.loadPlantSpritesheet = function(key) {
+    this.load.spritesheet(key, 'gfx/' + key + '.png', 15, 15);
+  };
+
+  Preload.prototype.loadToolSpritesheet = function(key) {
+    this.load.spritesheet(key, 'gfx/' + key + '.png', 20, 20);
   };
 
   Preload.prototype.create = function() {
