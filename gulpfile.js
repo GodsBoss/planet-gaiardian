@@ -8,7 +8,7 @@ gulp.task(
   'build:js',
   function() {
     gulp.
-      src('src/js/game.js').
+      src(JS_FILES).
       pipe(sourcemaps.init()).
       pipe(concat('game.js')).
       pipe(babel({presets: ['es2015']})).
@@ -17,3 +17,16 @@ gulp.task(
       pipe(gulp.dest('./dist/'));
   }
 );
+
+var JS_FILES = [
+  'Level',
+  'Levels',
+  'Plant',
+  'Plants',
+  'Timer',
+  'Tool',
+  'Tools',
+  'VictoryCondition',
+  'VictoryConditions',
+  'game'
+].map((file) => 'src/js/' + file + '.js');
