@@ -15,7 +15,7 @@
   var LEVEL_START_STYLE_HOVER = _.merge({}, LEVEL_START_STYLE, { fill: '#ffff00'});
 
   export function create(domId) {
-    var game = new Phaser.Game(320, 200, Phaser.AUTO, 'game', null, !TRANSPARENT, !ANTIALIASING);
+    var game = new Phaser.Game(320, 200, Phaser.CANVAS, 'game', null, !TRANSPARENT, !ANTIALIASING);
     game.state.add('Boot', new Boot(), AUTOSTART)
     game.state.add('Preload', new Preload());
     game.state.add('SelectLevel', new SelectLevel());
