@@ -1,23 +1,25 @@
 /*
 * A single level.
 */
-function Level(data)
-{
-  _.extend(this, data);
+class Level {
 
-  // Ensure booleans
-  this.unlocked = !!this.unlocked;
-  this.finished = !!this.finished;
+  constructor(data) {
+    _.extend(this, data);
 
-  // Must be array
-  this.unlocks = Array.isArray(this.unlocks) ? this.unlocks : [];
+    // Ensure booleans
+    this.unlocked = !!this.unlocked;
+    this.finished = !!this.finished;
+
+    // Must be array
+    this.unlocks = Array.isArray(this.unlocks) ? this.unlocks : [];
+  }
+
+  isWon(plants) {
+    return _.every(
+      this.victory.normal,
+      function(countNeeded, type){
+        return plants.hasAtLeast(type, countNeeded);
+      }
+    );
+  }
 }
-
-Level.prototype.isWon = function(plants) {
-  return _.every(
-    this.victory.normal,
-    function(countNeeded, type){
-      return plants.hasAtLeast(type, countNeeded);
-    }
-  );
-};
