@@ -7,7 +7,7 @@ dist/index.html: dist src/index.html dist/game.js $(GFX) dist/levels.json $(SFX)
 dist:
 	mkdir -p dist
 
-dist/game.js: node_modules src/js/*.js
+dist/game.js: node_modules src/js/*.js gulpfile.js
 	./node_modules/.bin/gulp build:js
 
 dist/levels.json: dist src/scripts/mergeData.js src/data/levels/*.json
