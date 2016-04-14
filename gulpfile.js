@@ -19,7 +19,6 @@ gulp.task(
 );
 
 var JS_FILES = [
-  'helpers',
   'State',
   'Boot',
   'Play',
