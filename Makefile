@@ -2,7 +2,7 @@ GFX=$(shell cd src/gfx; ls *.xcf | sed -e "{ s/\(.*\).xcf/dist\/gfx\/\\1.png/}")
 SFX=$(shell cd src/sfx; ls *.wav | sed -e "{s/\.*/dist\/sfx\/\\0/}")
 
 dist/index.html: dist src/index.html dist/game.js $(GFX) dist/levels.json $(SFX)
-	cp src/index.html dist
+	./node_modules/.bin/gulp build:index.html
 
 dist:
 	mkdir -p dist
