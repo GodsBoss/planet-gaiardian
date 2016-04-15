@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var concat = require('gulp-concat');
+var replace = require('gulp-replace');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 
@@ -42,6 +43,7 @@ gulp.task(
   function() {
     gulp.
       src('src/index.html').
+      pipe(replace('{CDN}', 'http://cdn.godsboss.org')).
       pipe(gulp.dest('./dist/'));
   }
 );
