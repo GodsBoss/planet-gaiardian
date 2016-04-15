@@ -24,7 +24,7 @@
     game.soundActive = true;
     game.playRandomSound = function(container) {
       if (this.soundActive) {
-        this.sound.play(SOUNDS[Math.floor(Math.random() * SOUNDS.length)]);
+        this.sound.play(Preload.SOUNDS[Math.floor(Math.random() * Preload.SOUNDS.length)]);
       }
     };
   };
