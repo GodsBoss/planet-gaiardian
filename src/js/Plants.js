@@ -5,21 +5,14 @@ class Plants {
   constructor(state, level) {
     this.plants = _.flatten(
       level.plantTypes.map(
-        function (type) {
-          if (!level.plants[type.key]) {
-            return [];
-          }
-          return level.plants[type.key].map(_.bind(this.createPlant, this, state, type.key));
-        },
-        this
+        (type) =>
+          level.plants[type.key] ? level.plants[type.key].map(_.bind(this.createPlant, this, state, type.key)) : []
       )
     );
     this.counts = {};
     level.plantTypes.forEach(
-      function (plantType) {
-        this.counts[plantType.key] = level.plants[plantType.key] ? level.plants[plantType.key].length : 0;
-      },
-      this
+      (plantType) =>
+        this.counts[plantType.key] = level.plants[plantType.key] ? level.plants[plantType.key].length : 0
     );
   }
 

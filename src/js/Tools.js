@@ -4,10 +4,7 @@
 class Tools {
   constructor(state, level) {
     this.tools = level.tools.map(
-      function (toolData) {
-        return new Tool(this, state, toolData);
-      },
-      this
+      (toolData) => new Tool(this, state, toolData)
     );
     this.currentToolIndex = 0;
     this.tools.some(function(tool) {
@@ -29,10 +26,7 @@ class Tools {
 
   positionTools() {
     this.tools.forEach(
-      function(tool, index, tools) {
-        tool.setVisibleIndex((index - this.currentToolIndex + tools.length) % tools.length)
-      },
-      this
+      (tool, index, tools) => tool.setVisibleIndex((index - this.currentToolIndex + tools.length) % tools.length)
     );
   }
 

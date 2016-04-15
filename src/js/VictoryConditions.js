@@ -4,9 +4,7 @@ class VictoryConditions {
     var index = 0;
     this.conditions = _.map(
       level.victory.normal,
-      function (amount, type) {
-        return new VictoryCondition(state, index++, type, amount);
-      }
+      (amount, type) => new VictoryCondition(state, index++, type, amount)
     );
   }
 

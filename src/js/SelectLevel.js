@@ -88,9 +88,7 @@ class SelectLevel extends State {
 
   update() {
     this.levelSprites.forEach(
-      function(sprite) {
-        sprite.rotation += 0.01;
-      }
+      (sprite) => sprite.rotation += 0.01
     );
   }
 }

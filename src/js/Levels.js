@@ -14,11 +14,11 @@ class Levels {
 
   dataToLevel(data) {
     var level = new Level(data);
-    level.unlocksSomeOtherLevel = level.unlocks.some(function(levelKey){
-      return this.data.levels.some(function(levelData) {
-        return !levelData.unlocked && levelData.key === levelKey
-      });
-    }, this);
+    level.unlocksSomeOtherLevel = level.unlocks.some((levelKey) =>
+      this.data.levels.some((levelData) =>
+        !levelData.unlocked && levelData.key === levelKey
+      )
+    );
     return level;
   }
 
@@ -30,8 +30,8 @@ class Levels {
 
   won(beatenLevel) {
     beatenLevel.unlocksSomeOtherLevel = false;
-    this.levels.filter(function(level) {
-      return _.includes(beatenLevel.unlocks, level.key)
-    }).forEach(function(level) { level.unlocked = true; });
+    this.levels.filter((level) =>
+      _.includes(beatenLevel.unlocks, level.key)
+    ).forEach(function(level) { level.unlocked = true; });
   };
 }

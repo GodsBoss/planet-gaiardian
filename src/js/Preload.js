@@ -10,10 +10,10 @@ class Preload extends State {
     var preloaderBar = this.add.sprite(this.world.centerX, this.world.centerY, 'PreloadBar');
     preloaderBar.anchor.setTo(0.5, 0.5);
     this.load.setPreloadSprite(preloaderBar);
-    Preload.PRELOAD_IMAGES.forEach(function(image) {this.loadImage(image);}, this);
-    Preload.PLANT_SPRITESHEETS.forEach(function(sheet) {this.loadPlantSpritesheet(sheet);}, this);
-    Preload.TOOL_SPRITESHEETS.forEach(function(sheet) {this.loadToolSpritesheet(sheet);}, this);
-    Preload.SOUNDS.forEach(function(key) {this.load.audio(key, 'sfx/' + key + '.wav')}, this);
+    Preload.PRELOAD_IMAGES.forEach((image) => this.loadImage(image));
+    Preload.PLANT_SPRITESHEETS.forEach((sheet) => this.loadPlantSpritesheet(sheet));
+    Preload.TOOL_SPRITESHEETS.forEach((sheet) => this.loadToolSpritesheet(sheet));
+    Preload.SOUNDS.forEach((key) => this.load.audio(key, 'sfx/' + key + '.wav'));
     this.loadSpritesheet('Player', 15, 15);
     this.loadSpritesheet('ActiveToolMarker', 24, 24);
     this.loadSpritesheet('ActivePlanetMarker', 30, 30);
