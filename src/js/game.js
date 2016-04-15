@@ -12,7 +12,7 @@
     fill: '#00ff00',
     font: 'bold 8px monospace'
   };
-  var LEVEL_START_STYLE_HOVER = _.merge({}, LEVEL_START_STYLE, { fill: '#ffff00'});
+  var LEVEL_START_STYLE_HOVER = Object.assign({}, LEVEL_START_STYLE, { fill: '#ffff00'});
 
   export function create(domId) {
     var game = new Phaser.Game(320, 200, Phaser.CANVAS, 'game', null, !TRANSPARENT, !ANTIALIASING);
