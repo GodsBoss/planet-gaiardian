@@ -6,16 +6,7 @@ class Tools {
     this.tools = level.tools.map(
       (toolData) => new Tool(this, state, toolData)
     );
-    this.currentToolIndex = 0;
-    this.tools.some(function(tool) {
-        if (tool.key === level.firstTool) {
-          return true;
-        } else {
-          this.currentToolIndex++;
-        }
-      },
-      this
-    );
+    this.currentToolIndex = this.tools.findIndex((tool) => tool.key === level.firstTool);
     this.current().setActive();
     this.positionTools();
     this.activeToolMarker = state.add.sprite(200, 15, 'ActiveToolMarker');
