@@ -22,7 +22,7 @@
     game.state.add('Play', new Play());
     game.state.add('ShowLevelResult', new ShowLevelResult());
     game.soundActive = true;
-    game.playRandomSound = function(container) {
+    game.playRandomSound = function() {
       if (this.soundActive) {
         this.sound.play(Preload.SOUNDS[Math.floor(Math.random() * Preload.SOUNDS.length)]);
       }
