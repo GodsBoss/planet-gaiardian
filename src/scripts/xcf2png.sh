@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 gimp -i -b "(let* ((image (car (gimp-file-load RUN-NONINTERACTIVE \"./src/gfx/$1.xcf\" \"$1.xcf\")))
 	(helper-layer (car (gimp-image-get-layer-by-name image \"Helpers\"))))
